@@ -1,0 +1,50 @@
+name: Publicar Posts Agendados
+
+on:
+  schedule:
+    - cron: '0 10 * * *'  # Todo dia às 07:00 BRT (10:00 UTC)
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Criar .env com secrets
+        run: |
+          cat > .env << EOF
+          HOSTINGER_FTP_HOST=${{ secrets.HOSTINGER_FTP_HOST }}
+          HOSTINGER_FTP_USER=${{ secrets.HOSTINGER_FTP_USER }}
+          HOSTINGER_FTP_PASS=${{ secrets.HOSTINGER_FTP_PASS }}
+          HOSTINGER_FTP_DIR=${{ secrets.HOSTINGER_FTP_DIR }}
+          ML_AFFILIATE_ID=${{ secrets.ML_AFFILIATE_ID }}
+          EOF
+
+      - name: Publicar posts agendados (draft:true → false se pubDate <= hoje)
+        run: node scripts/publish-scheduled.mjs
+
+      - name: Commit dos posts publicados
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/content/posts/
+          if git diff --staged --quiet; then
+            echo "Nada para commitar"
+          else
+            git commit -m "chore: publicar posts agendados [$(date +'%Y-%m-%d')]"
+            git push
+          fi

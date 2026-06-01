@@ -163,7 +163,7 @@ li { margin-bottom: 0.4em; }
   flex-shrink: 0;
 }
 .logo img {
-  height: 56px;
+  height: 120px;
   width: auto;
 }
 .logo-text {
@@ -910,6 +910,6 @@ li { margin-bottom: 0.4em; }
   .section { padding: 2.5rem 1.25rem; }
   .post-grid { grid-template-columns: 1fr; }
   .header-inner { padding: 0.6rem 1rem; }
-  .logo img { height: 44px; }
+  .logo img { height: 80px; }
   .site-header nav a { padding: 0.4rem 0.6rem; font-size: 0.8rem; }
 }

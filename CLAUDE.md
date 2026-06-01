@@ -92,6 +92,43 @@ import ProductCard from '../../components/ProductCard.astro';
 - Descrições meta têm máximo 160 caracteres
 - Posts saem com `draft: true` por padrão — mudar para `false` para publicar
 
+## Estratégia de Conteúdo (mix editorial 60/20/20)
+
+5 posts por semana (segunda a sexta), gerados em lote no fim de semana via skill `/lote-semanal`:
+
+- **60% Listicles "Top N"** (3 posts/sem — seg, qua, sex): tráfego alto, múltiplos pontos de saída
+- **20% Comparativos "X vs Y"** (1 post/sem — ter): alta conversão (EPC até 15x maior)
+- **20% Reviews individuais** (1 post/sem — qui): autoridade + nicho
+
+### Diretrizes de tom
+
+- **Honesto**: sempre apontar pontos negativos reais
+- **Técnico mas acessível**: explica termos sem jargão pesado
+- **Direto**: sem enrolação, vai ao ponto rápido
+- **Brasileiro**: usar "R$" e formatação brasileira
+- **Sem hipérbole**: evitar "incrível", "melhor de todos", "imperdível"
+
+### Fontes confiáveis para pesquisa (validar antes de escrever)
+
+Sempre pesquisar reviews reais antes de escrever análises. Fontes confiáveis no Brasil:
+- **Tudo Construção** (tudoconstrucao.com.br)
+- **Maquifer** (maquifer.com.br)
+- **Tools Brasil / TB Ferramentas**
+- **Reclame Aqui** (detectar problemas reais)
+- **YouTube** — canais "Marcenaria Madeireira", "Marceneiro Curioso", "Mestre dos Reparos"
+- **Sites oficiais** das marcas (Bosch, DeWalt, Black+Decker, Tramontina, WAP)
+
+**Regra de ouro**: nunca invente specs ou opiniões. Pesquise múltiplas fontes; se um ponto não for confirmado por pelo menos 2 fontes, não inclua.
+
+## Automação no GitHub Actions
+
+Dois workflows rodam em `https://github.com/marciocosta1379/reforma-caseira`:
+
+1. **`update-prices.yml`** — diariamente 06h BRT — busca preços atualizados no ML API e atualiza posts
+2. **`publish-scheduled.yml`** — diariamente 07h BRT — muda `draft: true → false` em posts com `pubDate <= hoje`
+
+Ambos commitam as mudanças e fazem deploy via FTP automaticamente.
+
 ## Estrutura de pastas
 
 - `src/content/posts/` — arquivos MDX dos posts

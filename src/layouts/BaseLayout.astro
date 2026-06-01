@@ -72,15 +72,15 @@ const websiteSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
     <slot name="head" />
 
-    <!-- Google Analytics (só em produção) -->
+    <!-- Google Analytics (só em produção, carrega após o conteúdo) -->
     {import.meta.env.PROD && (
       <>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-MJ12FYNXV6"></script>
+        <script async defer src="https://www.googletagmanager.com/gtag/js?id=G-MJ12FYNXV6"></script>
         <script>
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', 'G-MJ12FYNXV6');
+          gtag('config', 'G-MJ12FYNXV6', { send_page_view: true });
         </script>
       </>
     )}
@@ -95,6 +95,9 @@ const websiteSchema = {
           <img
             src="/logo.png"
             alt="Reforma Caseira"
+            width="160"
+            height="60"
+            fetchpriority="high"
             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
           />
           <span class="logo-text" style="display:none">

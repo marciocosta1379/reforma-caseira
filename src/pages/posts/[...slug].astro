@@ -3,7 +3,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
 import ProductCard from '../../components/ProductCard.astro';
-import { SITE } from '../../config/site';
+import { SITE, AUTHOR } from '../../config/site';
 
 export async function getStaticPaths() {
   // Em dev, mostra drafts para revisão. Em produção, filtra.
@@ -46,7 +46,12 @@ const articleSchema = {
   description: data.description,
   datePublished: data.pubDate.toISOString(),
   dateModified: (data.updatedDate ?? data.pubDate).toISOString(),
-  author: { '@type': 'Organization', name: data.author },
+  author: {
+    '@type': 'Person',
+    name: data.author,
+    url: AUTHOR.url,
+    description: AUTHOR.bio,
+  },
   publisher: {
     '@type': 'Organization',
     name: SITE.name,
@@ -176,5 +181,14 @@ const formattedDate = data.pubDate.toLocaleDateString('pt-BR', {
         </section>
       )
     }
+
+    <aside class="author-box" aria-label="Sobre o autor">
+      <div class="author-box__avatar" aria-hidden="true">{AUTHOR.name.charAt(0)}</div>
+      <div class="author-box__content">
+        <p class="author-box__name">{data.author} <span>· {AUTHOR.role}</span></p>
+        <p class="author-box__bio">{AUTHOR.bio}</p>
+        <a href="/sobre/" class="author-box__link">Como avaliamos →</a>
+      </div>
+    </aside>
   </article>
 </BaseLayout>

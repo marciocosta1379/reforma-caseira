@@ -1,64 +1,95 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE } from '../config/site';
+import { SITE, AUTHOR } from '../config/site';
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: AUTHOR.name,
+  jobTitle: AUTHOR.role,
+  description: AUTHOR.bio,
+  url: AUTHOR.url,
+  worksFor: {
+    '@type': 'Organization',
+    name: SITE.name,
+    url: SITE.url,
+  },
+};
 ---
 
 <BaseLayout
   title="Sobre"
-  description={`Conheça a ${SITE.name}: como avaliamos ferramentas, nossa metodologia de testes e por que você pode confiar nas recomendações.`}
+  description={`Conheça a ${SITE.name}: nossa metodologia de pesquisa, quem está por trás e por que você pode confiar nas recomendações.`}
 >
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+
   <article class="container prose section">
     <h1>Sobre a {SITE.name}</h1>
 
     <p>
       A {SITE.name} nasceu para resolver um problema simples: quando você quer comprar uma
-      ferramenta nova, a internet está cheia de listas genéricas escritas por quem nunca
-      pegou no produto. Aqui é diferente.
+      ferramenta nova, a internet está cheia de listas genéricas, copiadas umas das outras,
+      escritas só para empurrar links. Aqui o trabalho é outro — pesquisa séria antes de
+      recomendar qualquer coisa.
     </p>
 
-    <h2>Quem somos</h2>
+    <h2>Quem está por trás</h2>
     <p>
-      Somos uma equipe de marceneiros amadores, reformadores de fim de semana e gente que
-      curte resolver as coisas em casa. Compramos as ferramentas com nosso próprio dinheiro,
-      usamos no dia a dia, e depois compartilhamos o que aprendemos.
+      <strong>{AUTHOR.name}</strong> — {AUTHOR.role}. {AUTHOR.bio}
     </p>
 
-    <h2>Como avaliamos</h2>
-    <p>Cada review segue um processo padronizado:</p>
+    <h2>Como avaliamos (com honestidade)</h2>
+    <p>
+      Não testamos fisicamente todos os produtos que recomendamos — seria desonesto dizer que
+      compramos e usamos dezenas de ferramentas. O que fazemos é uma <strong>pesquisa
+      cuidadosa e cruzada</strong> antes de cada recomendação:
+    </p>
     <ol>
       <li>
-        <strong>Uso real:</strong> testamos a ferramenta em projetos concretos por pelo menos
-        2 semanas antes de escrever sobre ela.
+        <strong>Especificações oficiais:</strong> conferimos potência, voltagem, RPM, torque e
+        capacidades direto nas fichas técnicas dos fabricantes — sem repetir números errados
+        que circulam por aí.
       </li>
       <li>
-        <strong>Comparação direta:</strong> sempre que possível, comparamos com pelo menos 2
-        concorrentes da mesma faixa de preço.
+        <strong>Avaliações reais de compradores:</strong> lemos dezenas a centenas de reviews
+        de quem realmente comprou, para entender durabilidade, defeitos comuns e o que esperar
+        no dia a dia.
       </li>
       <li>
-        <strong>Critérios objetivos:</strong> medimos potência, autonomia (quando aplicável),
-        precisão, ergonomia e custo-benefício.
+        <strong>Reclamações e pós-venda:</strong> checamos o Reclame Aqui e fóruns para
+        detectar problemas recorrentes e a qualidade do suporte de cada marca.
       </li>
       <li>
-        <strong>Atualização contínua:</strong> revisitamos as reviews quando há lançamentos
-        novos ou mudanças significativas de preço.
+        <strong>Fontes especializadas:</strong> cruzamos com canais de marcenaria, sites
+        técnicos e comparativos de referência no Brasil.
+      </li>
+      <li>
+        <strong>Regra de ouro:</strong> se uma informação não é confirmada por pelo menos duas
+        fontes confiáveis, ela não entra na review.
       </li>
     </ol>
+    <p>
+      O resultado é um guia de compra fundamentado — não um teste de bancada, e nós deixamos
+      isso claro. Quando apontamos um ponto negativo, é porque os dados e os compradores
+      apontaram.
+    </p>
 
     <h2>Nossa fonte de renda</h2>
     <p>
-      Mantemos o site através de programas de afiliado. Quando você compra um produto pelo
-      nosso link, recebemos uma pequena comissão — sem custo extra para você. Isso paga as
-      ferramentas que testamos e o tempo dedicado às reviews.
+      Mantemos o site através do programa de afiliados do Mercado Livre. Quando você compra um
+      produto pelo nosso link, recebemos uma pequena comissão — sem custo extra para você. Isso
+      paga o tempo dedicado à pesquisa e à manutenção do site.
     </p>
     <p>
-      <strong>Isso não influencia nossas opiniões.</strong> Já recomendamos produtos baratos
-      em vez de caros e já reprovamos produtos de marcas grandes. O critério é sempre o
-      mesmo: o que oferece o melhor resultado para você.
+      <strong>Isso não influencia nossas opiniões.</strong> Já recomendamos produtos baratos em
+      vez de caros e já apontamos defeitos de marcas grandes. O critério é sempre o mesmo: o que
+      oferece o melhor resultado para você.
     </p>
 
     <h2>Fale com a gente</h2>
     <p>
       Tem uma dúvida, sugestão de review ou correção? <a href="/contato/">Entre em contato</a>.
+      Levamos correções a sério — se erramos uma spec, queremos saber.
     </p>
   </article>
 </BaseLayout>

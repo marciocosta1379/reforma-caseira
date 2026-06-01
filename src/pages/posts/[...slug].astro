@@ -139,6 +139,23 @@ const formattedDate = data.pubDate.toLocaleDateString('pt-BR', {
       />
     )
   }
+  {
+    data.faq && data.faq.length > 0 && (
+      <script
+        slot="head"
+        type="application/ld+json"
+        set:html={JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: data.faq.map((f) => ({
+            '@type': 'Question',
+            name: f.question,
+            acceptedAnswer: { '@type': 'Answer', text: f.answer },
+          })),
+        })}
+      />
+    )
+  }
 
   <article class="container post" data-pagefind-body>
     <header class="post__header">

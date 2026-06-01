@@ -34,6 +34,9 @@ const posts = defineCollection({
       ]),
       tags: z.array(z.string()).default([]),
       products: z.array(productSchema).default([]),
+      faq: z
+        .array(z.object({ question: z.string(), answer: z.string() }))
+        .optional(),
       author: z.string().default('Equipe Editorial'),
       draft: z.boolean().default(false),
       featured: z.boolean().default(false),

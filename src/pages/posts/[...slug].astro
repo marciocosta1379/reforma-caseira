@@ -182,13 +182,5 @@ const formattedDate = data.pubDate.toLocaleDateString('pt-BR', {
       )
     }
 
-    <aside class="author-box" aria-label="Sobre o autor">
-      <div class="author-box__avatar" aria-hidden="true">{AUTHOR.name.charAt(0)}</div>
-      <div class="author-box__content">
-        <p class="author-box__name">{data.author} <span>· {AUTHOR.role}</span></p>
-        <p class="author-box__bio">{AUTHOR.bio}</p>
-        <a href="/sobre/" class="author-box__link">Como avaliamos →</a>
-      </div>
-    </aside>
   </article>
 </BaseLayout>

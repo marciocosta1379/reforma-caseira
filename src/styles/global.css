@@ -570,37 +570,6 @@ li { margin-bottom: 0.4em; }
 .nav-search { display: flex; align-items: center; padding: 0.25rem; color: var(--color-text-soft); transition: color 0.15s; }
 .nav-search:hover { color: var(--color-orange); }
 
-/* Caixa de autor (E-E-A-T) */
-.author-box {
-  display: flex;
-  gap: 1.25rem;
-  align-items: flex-start;
-  max-width: var(--container-prose);
-  margin: 3rem auto 0;
-  padding: 1.5rem;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-}
-.author-box__avatar {
-  flex-shrink: 0;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: var(--color-orange);
-  color: #fff;
-  font-size: 1.5rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.author-box__name { font-weight: 700; color: var(--color-dark); margin: 0 0 0.4rem; }
-.author-box__name span { font-weight: 400; color: var(--color-text-muted); font-size: 0.9rem; }
-.author-box__bio { font-size: 0.9rem; line-height: 1.6; color: var(--color-text-soft); margin: 0 0 0.6rem; }
-.author-box__link { font-size: 0.875rem; font-weight: 600; color: var(--color-orange); text-decoration: none; }
-.author-box__link:hover { text-decoration: underline; }
-
 /* ============ PRODUCT CARD ============ */
 .product-card {
   background: var(--color-surface);

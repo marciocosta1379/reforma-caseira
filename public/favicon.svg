@@ -1,8 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="10" fill="#2d3a4a"/>
-  <path d="M32 8 L54 26 L54 56 L10 56 L10 26 Z" fill="none" stroke="#10a99e" stroke-width="3" stroke-linejoin="round"/>
-  <path d="M24 56 L24 38 L40 38 L40 56" fill="#10a99e" stroke="#10a99e" stroke-width="1.5" stroke-linejoin="round"/>
-  <rect x="18" y="28" width="10" height="8" rx="1" fill="#e8681a"/>
-  <circle cx="46" cy="46" r="9" fill="#e8681a"/>
-  <path d="M42 46 L45 49 L50 43" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Casa outline -->
+  <path d="M50 8 L88 38 L88 92 L12 92 L12 38 Z" fill="white" stroke="#2d3a4a" stroke-width="6" stroke-linejoin="round"/>
+  <!-- Telhado fill -->
+  <path d="M50 8 L88 38 L12 38 Z" fill="none" stroke="#2d3a4a" stroke-width="6" stroke-linejoin="round"/>
+  <!-- Chaminé -->
+  <rect x="62" y="10" width="8" height="16" rx="1" fill="#2d3a4a"/>
+  <!-- Janela 2x2 -->
+  <rect x="39" y="18" width="7" height="7" rx="1" fill="#2d3a4a"/>
+  <rect x="48" y="18" width="7" height="7" rx="1" fill="#2d3a4a"/>
+  <rect x="39" y="27" width="7" height="7" rx="1" fill="#2d3a4a"/>
+  <rect x="48" y="27" width="7" height="7" rx="1" fill="#2d3a4a"/>
+  <!-- Tinta teal (canto inferior esquerdo) -->
+  <path d="M12 70 L12 92 L32 92 Z" fill="#0fa89c"/>
+  <!-- Rolo de pintura - cabo -->
+  <line x1="42" y1="72" x2="38" y2="88" stroke="#2d3a4a" stroke-width="4" stroke-linecap="round"/>
+  <!-- Rolo de pintura - cabeça (laranja) -->
+  <rect x="26" y="52" width="30" height="14" rx="4" fill="#e8651a"/>
+  <!-- Rolo - suporte -->
+  <path d="M30 52 L30 46 L50 46 L50 52" fill="none" stroke="#2d3a4a" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="40" y1="46" x2="42" y2="72" stroke="#2d3a4a" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Badge estrela+check (canto inferior direito) -->
+  <circle cx="74" cy="76" r="16" fill="white" stroke="#0fa89c" stroke-width="3.5"/>
+  <!-- Estrela -->
+  <polygon points="74,63 76.5,70.5 84,70.5 78,75 80.5,82.5 74,78 67.5,82.5 70,75 64,70.5 71.5,70.5" fill="#2d3a4a" transform="scale(0.72) translate(29, 21)"/>
+  <!-- Check teal -->
+  <polyline points="67,77 72,83 82,70" stroke="#0fa89c" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

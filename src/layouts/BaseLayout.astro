@@ -1,6 +1,7 @@
 ---
 import { SITE } from '../config/site';
 import '../styles/global.css';
+import CookieBanner from '../components/CookieBanner.astro';
 
 interface Props {
   title?: string;
@@ -168,5 +169,6 @@ const websiteSchema = {
         através dos nossos links podem gerar uma comissão sem custo adicional para você.
       </p>
     </footer>
+    <CookieBanner />
   </body>
 </html>

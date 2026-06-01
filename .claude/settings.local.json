@@ -5,7 +5,10 @@
       "WebFetch(domain:www.mercadolivre.com.br)",
       "WebSearch",
       "WebFetch(domain:mambadigital.com.br)",
-      "WebFetch(domain:afilialink.com.br)"
+      "WebFetch(domain:afilialink.com.br)",
+      "mcp__Claude_in_Chrome__find",
+      "mcp__Claude_in_Chrome__computer",
+      "mcp__Claude_in_Chrome__get_page_text"
     ]
   }
 }

@@ -6,7 +6,9 @@ import ProductCard from '../../components/ProductCard.astro';
 import { SITE } from '../../config/site';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  // Em dev, mostra drafts para revisão. Em produção, filtra.
+  const isDev = import.meta.env.DEV;
+  const posts = await getCollection('posts', ({ data }) => isDev || !data.draft);
   return posts.map((post) => ({
     params: { slug: post.slug },
     props: { post },

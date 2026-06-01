@@ -567,6 +567,8 @@ li { margin-bottom: 0.4em; }
 }
 .affiliate-btn:active { transform: translateY(0); }
 .affiliate-btn--block { display: flex; width: 100%; }
+.nav-search { display: flex; align-items: center; padding: 0.25rem; color: var(--color-text-soft); transition: color 0.15s; }
+.nav-search:hover { color: var(--color-orange); }
 
 /* ============ PRODUCT CARD ============ */
 .product-card {

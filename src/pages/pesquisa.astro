@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Pesquisar" description="Pesquise por ferramentas, marcas e reviews no Reforma Caseira.">
+  <div class="container search-page">
+    <h1>Pesquisar no site</h1>
+    <p class="search-page__sub">Encontre reviews, comparativos e guias de ferramentas.</p>
+    <div id="search"></div>
+  </div>
+
+  <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+  <script is:inline>
+    window.addEventListener('DOMContentLoaded', () => {
+      if (typeof window.PagefindUI !== 'undefined') {
+        new window.PagefindUI({
+          element: '#search',
+          showSubResults: true,
+          translations: {
+            placeholder: 'Pesquisar ferramentas, marcas...',
+            zero_results: 'Nenhum resultado para "[QUERY]"',
+            many_results: '[COUNT] resultados para "[QUERY]"',
+            one_result: '1 resultado para "[QUERY]"',
+            load_more: 'Carregar mais',
+            search_label: 'Pesquisar neste site',
+            filters_label: 'Filtros',
+            clear_search: 'Limpar',
+            clear_filters: 'Limpar filtros',
+            search_hint: 'Pesquisar',
+          },
+        });
+      }
+    });
+  </script>
+  <script is:inline src="/pagefind/pagefind-ui.js"></script>
+</BaseLayout>
+
+<style>
+.search-page {
+  padding: 3rem 1.5rem 5rem;
+  max-width: 760px;
+}
+.search-page h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+.search-page__sub {
+  color: var(--color-text-muted);
+  margin-bottom: 2rem;
+}
+</style>

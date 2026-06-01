@@ -100,9 +100,16 @@ function formatDate(date: Date) {
         <a href="/categorias/">Ver todos →</a>
       </div>
       <div class="post-grid">
-        {featured.map((post) => (
+        {featured.map((post) => {
+          const thumb = post.data.products?.[0]?.image;
+          return (
           <article class="post-card">
-            <div class="post-card__thumb">🔧</div>
+            <div class="post-card__thumb">
+              {thumb
+                ? <img src={thumb} alt={post.data.title} loading="lazy" />
+                : <span>🔧</span>
+              }
+            </div>
             <div class="post-card__body">
               <span class="badge badge--orange">{post.data.category}</span>
               <a href={`/posts/${post.slug}/`}>
@@ -115,7 +122,8 @@ function formatDate(date: Date) {
               </div>
             </div>
           </article>
-        ))}
+          );
+        })}
       </div>
     </section>
   )}
@@ -136,9 +144,16 @@ function formatDate(date: Date) {
       </div>
     ) : (
       <div class="post-grid">
-        {latest.map((post) => (
+        {latest.map((post) => {
+          const thumb = post.data.products?.[0]?.image;
+          return (
           <article class="post-card">
-            <div class="post-card__thumb">🔧</div>
+            <div class="post-card__thumb">
+              {thumb
+                ? <img src={thumb} alt={post.data.title} loading="lazy" />
+                : <span>🔧</span>
+              }
+            </div>
             <div class="post-card__body">
               <span class="badge">{post.data.category}</span>
               <a href={`/posts/${post.slug}/`}>
@@ -151,7 +166,8 @@ function formatDate(date: Date) {
               </div>
             </div>
           </article>
-        ))}
+          );
+        })}
       </div>
     )}
   </section>

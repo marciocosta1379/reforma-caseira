@@ -1,0 +1,125 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const categoryLabels: Record<string, string> = {
+    furadeiras: 'Furadeiras',
+    parafusadeiras: 'Parafusadeiras',
+    serras: 'Serras',
+    lixadeiras: 'Lixadeiras',
+    medicao: 'Medição',
+    'ferramentas-manuais': 'Ferramentas Manuais',
+    jardinagem: 'Jardinagem',
+    organizacao: 'Organização',
+    guias: 'Guias de Compra',
+  };
+
+  const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+
+  return Object.keys(categoryLabels).map((slug) => ({
+    params: { slug },
+    props: {
+      label: categoryLabels[slug],
+      posts: allPosts
+        .filter((p) => p.data.category === slug)
+        .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()),
+    },
+  }));
+}
+
+const { slug } = Astro.params;
+const { label, posts } = Astro.props;
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+---
+
+<BaseLayout
+  title={`${label} — Reviews e Guias`}
+  description={`Reviews honestos, comparativos e guias de compra sobre ${label.toLowerCase()} para reformas e marcenaria amadora.`}
+>
+  <div class="container section">
+    <nav class="cat-breadcrumb" aria-label="Navegação por categoria">
+      <a href="/categorias/">← Todas as categorias</a>
+    </nav>
+
+    <h1 class="cat-title">{label}</h1>
+
+    {posts.length === 0 ? (
+      <div class="cat-empty">
+        <div class="cat-empty__icon">🔧</div>
+        <h2>Em breve por aqui</h2>
+        <p>Ainda não temos reviews de <strong>{label.toLowerCase()}</strong>, mas estamos preparando conteúdo de qualidade. Volte em breve!</p>
+        <a href="/categorias/" class="btn-outline">Ver outras categorias</a>
+      </div>
+    ) : (
+      <div class="post-grid">
+        {posts.map((post) => {
+          const thumb = post.data.products?.[0]?.image;
+          return (
+            <article class="post-card">
+              <div class="post-card__thumb">
+                {thumb
+                  ? <img src={thumb} alt={post.data.title} loading="lazy" />
+                  : <span>🔧</span>
+                }
+              </div>
+              <div class="post-card__body">
+                <a href={`/posts/${post.slug}/`}>
+                  <h3>{post.data.title}</h3>
+                </a>
+                <p class="post-card__excerpt">{post.data.description}</p>
+                <div class="post-card__footer">
+                  <span class="post-card__date">{formatDate(post.data.pubDate)}</span>
+                  <a href={`/posts/${post.slug}/`} class="post-card__read">Ler review →</a>
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+.cat-breadcrumb {
+  margin-bottom: 1.25rem;
+  font-size: 0.875rem;
+}
+.cat-breadcrumb a {
+  color: var(--color-teal);
+  text-decoration: none;
+}
+.cat-breadcrumb a:hover { text-decoration: underline; }
+
+.cat-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.cat-empty {
+  text-align: center;
+  padding: 4rem 1.5rem;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.cat-empty__icon { font-size: 3.5rem; margin-bottom: 1rem; }
+.cat-empty h2 { font-size: 1.5rem; margin-bottom: 0.75rem; }
+.cat-empty p { color: var(--color-text-muted); margin-bottom: 1.5rem; line-height: 1.7; }
+.btn-outline {
+  display: inline-block;
+  padding: 0.6rem 1.4rem;
+  border: 2px solid var(--color-orange);
+  color: var(--color-orange);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+.btn-outline:hover { background: var(--color-orange); color: #fff; }
+</style>

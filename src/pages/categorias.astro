@@ -4,23 +4,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 
-const categoryLabels: Record<string, string> = {
-  furadeiras: 'Furadeiras',
-  parafusadeiras: 'Parafusadeiras',
-  serras: 'Serras',
-  lixadeiras: 'Lixadeiras',
-  medicao: 'Medição',
-  'ferramentas-manuais': 'Ferramentas manuais',
-  jardinagem: 'Jardinagem',
-  organizacao: 'Organização',
-  guias: 'Guias de compra',
-};
+const categories = [
+  { slug: 'furadeiras',          label: 'Furadeiras',          icon: '🔩' },
+  { slug: 'parafusadeiras',      label: 'Parafusadeiras',      icon: '🔧' },
+  { slug: 'serras',              label: 'Serras',              icon: '🪚' },
+  { slug: 'lixadeiras',         label: 'Lixadeiras',          icon: '🟠' },
+  { slug: 'medicao',            label: 'Medição',             icon: '📏' },
+  { slug: 'ferramentas-manuais', label: 'Ferramentas Manuais', icon: '🔨' },
+  { slug: 'jardinagem',          label: 'Jardinagem',          icon: '🌿' },
+  { slug: 'organizacao',         label: 'Organização',         icon: '📦' },
+  { slug: 'guias',               label: 'Guias de Compra',     icon: '📖' },
+];
 
-const byCategory = new Map<string, typeof allPosts>();
+const countByCategory = new Map<string, number>();
 for (const post of allPosts) {
-  const arr = byCategory.get(post.data.category) ?? [];
-  arr.push(post);
-  byCategory.set(post.data.category, arr);
+  countByCategory.set(post.data.category, (countByCategory.get(post.data.category) ?? 0) + 1);
 }
 ---
 
@@ -28,21 +26,58 @@ for (const post of allPosts) {
   title="Categorias"
   description="Navegue pelas reviews e guias de compra organizados por tipo de ferramenta."
 >
-  <article class="container section">
+  <div class="container section">
     <h1>Categorias</h1>
-    {
-      [...byCategory.entries()].map(([slug, posts]) => (
-        <section class="category-block">
-          <h2>{categoryLabels[slug] ?? slug}</h2>
-          <ul class="link-list">
-            {posts.map((p) => (
-              <li>
-                <a href={`/posts/${p.slug}/`}>{p.data.title}</a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))
-    }
-  </article>
+    <p class="cat-subtitle">Escolha a categoria para ver os reviews disponíveis.</p>
+
+    <div class="cat-grid">
+      {categories.map(({ slug, label, icon }) => {
+        const count = countByCategory.get(slug) ?? 0;
+        return (
+          <a href={`/categorias/${slug}/`} class={`cat-card ${count === 0 ? 'cat-card--empty' : ''}`}>
+            <span class="cat-card__icon">{icon}</span>
+            <span class="cat-card__label">{label}</span>
+            <span class="cat-card__count">
+              {count > 0 ? `${count} review${count > 1 ? 's' : ''}` : 'Em breve'}
+            </span>
+          </a>
+        );
+      })}
+    </div>
+  </div>
 </BaseLayout>
+
+<style>
+.cat-subtitle {
+  color: var(--color-text-muted);
+  margin-bottom: 2.5rem;
+}
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+.cat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem 1rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  text-align: center;
+  transition: box-shadow 0.15s, border-color 0.15s, transform 0.15s;
+}
+.cat-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-orange);
+  transform: translateY(-2px);
+}
+.cat-card--empty { opacity: 0.6; }
+.cat-card--empty:hover { border-color: var(--color-border); transform: none; box-shadow: none; }
+.cat-card__icon { font-size: 2rem; }
+.cat-card__label { font-weight: 700; color: var(--color-dark); font-size: 0.95rem; }
+.cat-card__count { font-size: 0.8rem; color: var(--color-text-muted); }
+</style>

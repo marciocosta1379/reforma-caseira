@@ -1,0 +1,27 @@
+{
+  "name": "site-reviews-ml",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "deploy": "astro build && node scripts/deploy.mjs",
+    "search": "node scripts/search-products.mjs",
+    "scaffold": "node scripts/scaffold-post.mjs",
+    "publish-scheduled": "node scripts/publish-scheduled.mjs",
+    "update-prices": "node scripts/update-prices.mjs",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^3.1.7",
+    "@astrojs/rss": "^4.0.7",
+    "@astrojs/sitemap": "3.1.6",
+    "astro": "^4.16.0",
+    "basic-ftp": "^6.0.1",
+    "dotenv": "^17.4.2",
+    "sharp": "^0.33.5"
+  }
+}

@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../config/site';
+---
+
+<BaseLayout
+  title="Divulgação de Afiliado"
+  description="Como funcionam os links de afiliado no site, o que isso significa para você e como mantemos nossa imparcialidade."
+>
+  <article class="container prose section">
+    <h1>Divulgação de Afiliado</h1>
+
+    <p>
+      A {SITE.name} é um participante de programas de afiliado, incluindo o Programa de
+      Afiliados do Mercado Livre. Isso significa que recebemos uma comissão sobre vendas
+      qualificadas geradas a partir dos links presentes em nossos artigos.
+    </p>
+
+    <h2>O que isso significa pra você</h2>
+    <p>
+      <strong>Absolutamente nada do ponto de vista financeiro.</strong> O preço que você paga
+      é exatamente o mesmo, comprando pelo nosso link ou indo direto ao Mercado Livre. A
+      comissão é paga pela plataforma com a margem deles, não somada ao seu pedido.
+    </p>
+
+    <h2>Como identificamos esses links</h2>
+    <p>
+      Todos os botões e links de afiliado abrem em nova aba e carregam o atributo HTML
+      <code>rel="sponsored nofollow"</code> — padrão técnico exigido pelos buscadores para
+      marcar links comerciais.
+    </p>
+
+    <h2>Por que confiamos no modelo</h2>
+    <p>
+      É a forma mais sustentável de manter um site editorial sem cobrar do leitor, sem encher
+      a tela de banners e sem precisar negociar diretamente com fabricantes (o que comprometeria
+      a imparcialidade das reviews).
+    </p>
+
+    <h2>Nosso compromisso editorial</h2>
+    <ul>
+      <li>Recomendamos apenas produtos que avaliamos com critério.</li>
+      <li>Apontamos pontos negativos mesmo dos produtos que gostamos.</li>
+      <li>Quando um produto não vale a pena, dizemos com todas as letras.</li>
+      <li>Não aceitamos pagamento para mudar uma avaliação.</li>
+    </ul>
+
+    <p>
+      Dúvidas? Escreva para <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+    </p>
+  </article>
+</BaseLayout>

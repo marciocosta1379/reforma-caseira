@@ -1,0 +1,21 @@
+---
+interface Props {
+  variant?: 'full' | 'mini';
+}
+const { variant = 'full' } = Astro.props;
+---
+
+{
+  variant === 'full' ? (
+    <aside class="disclosure" role="note">
+      <strong>Divulgação:</strong> este artigo contém links de afiliado. Se você comprar
+      através deles, podemos receber uma pequena comissão sem custo adicional para você.
+      Isso nos ajuda a manter o site no ar, mas não influencia nossas recomendações — só
+      indicamos produtos que avaliamos com critério.
+    </aside>
+  ) : (
+    <p class="disclosure disclosure--mini">
+      <em>Contém links de afiliado. <a href="/divulgacao-afiliado/">Saiba mais</a>.</em>
+    </p>
+  )
+}

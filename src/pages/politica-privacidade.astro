@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../config/site';
+
+const lastUpdate = new Date().toLocaleDateString('pt-BR');
+---
+
+<BaseLayout
+  title="Política de Privacidade"
+  description="Como coletamos, usamos e protegemos seus dados ao navegar pela Reforma Caseira."
+>
+  <article class="container prose section">
+    <h1>Política de Privacidade</h1>
+    <p><em>Última atualização: {lastUpdate}</em></p>
+
+    <p>
+      Esta política descreve como o site {SITE.name} ({SITE.url}) trata informações de
+      visitantes, em conformidade com a Lei Geral de Proteção de Dados (Lei 13.709/2018).
+    </p>
+
+    <h2>1. Quais dados coletamos</h2>
+    <p>Coletamos o mínimo necessário para operar o site:</p>
+    <ul>
+      <li>
+        <strong>Dados de navegação anônimos</strong> via ferramenta de analytics (páginas
+        visitadas, tempo de permanência, país, dispositivo).
+      </li>
+      <li>
+        <strong>Cookies de terceiros</strong> quando você clica em links de afiliado (definidos
+        pelas plataformas parceiras, não por nós).
+      </li>
+      <li>
+        <strong>E-mail</strong> apenas se você nos enviar mensagem voluntariamente.
+      </li>
+    </ul>
+
+    <h2>2. Como usamos esses dados</h2>
+    <ul>
+      <li>Entender quais conteúdos são úteis aos leitores</li>
+      <li>Melhorar a estrutura e a performance do site</li>
+      <li>Responder mensagens que você nos enviar</li>
+      <li>Receber comissões legítimas dos programas de afiliado</li>
+    </ul>
+
+    <h2>3. O que NÃO fazemos com seus dados</h2>
+    <ul>
+      <li>Não vendemos sua informação para terceiros</li>
+      <li>Não usamos seus dados para publicidade direcionada própria</li>
+      <li>Não criamos perfis comportamentais</li>
+    </ul>
+
+    <h2>4. Cookies</h2>
+    <p>
+      Cookies são pequenos arquivos que sites salvam no seu navegador. Usamos cookies
+      essenciais para o funcionamento do site e cookies de terceiros relacionados aos
+      programas de afiliado. Você pode desativá-los nas configurações do seu navegador, mas
+      partes do site podem deixar de funcionar normalmente.
+    </p>
+
+    <h2>5. Seus direitos (LGPD)</h2>
+    <p>Você tem direito a:</p>
+    <ul>
+      <li>Saber quais dados temos sobre você</li>
+      <li>Solicitar correção ou exclusão</li>
+      <li>Revogar consentimento</li>
+      <li>Apresentar reclamação à ANPD</li>
+    </ul>
+    <p>
+      Para exercer esses direitos, escreva para <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+    </p>
+
+    <h2>6. Alterações nesta política</h2>
+    <p>
+      Podemos atualizar esta política conforme o site evolui. Mudanças relevantes serão
+      destacadas no topo desta página.
+    </p>
+  </article>
+</BaseLayout>

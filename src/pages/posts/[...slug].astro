@@ -1,0 +1,178 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { SITE } from '../../config/site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const { data } = post;
+
+const url = new URL(Astro.url.pathname, Astro.site).toString();
+
+const products = data.products ?? [];
+const aggregateRating =
+  products.length > 0 && products.every((p) => typeof p.rating === 'number')
+    ? {
+        '@type': 'AggregateRating',
+        ratingValue: (
+          products.reduce((sum, p) => sum + (p.rating ?? 0), 0) / products.length
+        ).toFixed(1),
+        reviewCount: products.length,
+        bestRating: 5,
+        worstRating: 1,
+      }
+    : null;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: data.title,
+  description: data.description,
+  datePublished: data.pubDate.toISOString(),
+  dateModified: (data.updatedDate ?? data.pubDate).toISOString(),
+  author: { '@type': 'Organization', name: data.author },
+  publisher: {
+    '@type': 'Organization',
+    name: SITE.name,
+    url: SITE.url,
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+};
+
+const productSchemas = products.map((p, i) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: p.name,
+  brand: p.brand ? { '@type': 'Brand', name: p.brand } : undefined,
+  image: p.image,
+  offers: p.price
+    ? {
+        '@type': 'Offer',
+        price: p.price.toFixed(2),
+        priceCurrency: 'BRL',
+        availability: 'https://schema.org/InStock',
+        url: p.affiliateUrl,
+      }
+    : undefined,
+  review: p.rating
+    ? {
+        '@type': 'Review',
+        reviewRating: { '@type': 'Rating', ratingValue: p.rating, bestRating: 5 },
+        author: { '@type': 'Organization', name: SITE.name },
+      }
+    : undefined,
+  position: i + 1,
+}));
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Início', item: SITE.url },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Categorias',
+      item: `${SITE.url}/categorias/`,
+    },
+    { '@type': 'ListItem', position: 3, name: data.title, item: url },
+  ],
+};
+
+const formattedDate = data.pubDate.toLocaleDateString('pt-BR', {
+  day: '2-digit',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  type="article"
+  pubDate={data.pubDate}
+  updatedDate={data.updatedDate}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumb)} />
+  {
+    productSchemas.map((s) => (
+      <script slot="head" type="application/ld+json" set:html={JSON.stringify(s)} />
+    ))
+  }
+  {
+    aggregateRating && (
+      <script
+        slot="head"
+        type="application/ld+json"
+        set:html={JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          name: data.title,
+          itemListElement: products.map((p, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            item: { '@type': 'Product', name: p.name },
+          })),
+        })}
+      />
+    )
+  }
+
+  <article class="container post">
+    <header class="post__header">
+      <p class="post__cat">
+        <a href="/categorias/">Categorias</a>
+      </p>
+      <h1>{data.title}</h1>
+      <p class="post__lede">{data.description}</p>
+      <p class="post__meta">
+        Publicado em <time datetime={data.pubDate.toISOString()}>{formattedDate}</time>
+        {
+          data.updatedDate && (
+            <>
+              {' '}· Atualizado em
+              <time datetime={data.updatedDate.toISOString()}>
+                {' '}
+                {data.updatedDate.toLocaleDateString('pt-BR')}
+              </time>
+            </>
+          )
+        }
+      </p>
+    </header>
+
+    <AffiliateDisclosure />
+
+    <div class="prose post__body">
+      <Content />
+    </div>
+
+    {
+      products.length > 0 && (
+        <section class="post__products">
+          <h2>Resumo dos produtos avaliados</h2>
+          <div class="product-grid">
+            {products.map((p, i) => (
+              <ProductCard {...p} rank={i + 1} source={post.slug} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </article>
+</BaseLayout>

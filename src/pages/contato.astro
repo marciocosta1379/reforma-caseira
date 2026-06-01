@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../config/site';
+---
+
+<BaseLayout
+  title="Contato"
+  description="Entre em contato com a equipe — sugestões de review, parcerias e correções."
+>
+  <article class="container prose section">
+    <h1>Contato</h1>
+    <p>Quer sugerir uma review, propor parceria ou corrigir alguma informação? Escreva pra nós.</p>
+
+    <h2>E-mail</h2>
+    <p>
+      <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+    </p>
+
+    <h2>O que respondemos rápido</h2>
+    <ul>
+      <li>Sugestões de produtos para review</li>
+      <li>Correções factuais em posts publicados</li>
+      <li>Dúvidas sobre uma ferramenta específica</li>
+      <li>Convites para parcerias editoriais</li>
+    </ul>
+
+    <h2>O que não fazemos</h2>
+    <ul>
+      <li>Reviews patrocinadas pagas (perdemos a credibilidade)</li>
+      <li>Trocar links por produtos grátis</li>
+      <li>Esconder pontos negativos a pedido de fabricantes</li>
+    </ul>
+  </article>
+</BaseLayout>

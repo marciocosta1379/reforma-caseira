@@ -1,0 +1,54 @@
+---
+import AffiliateButton from './AffiliateButton.astro';
+
+interface Row {
+  name: string;
+  brand?: string;
+  price?: number;
+  rating?: number;
+  highlight?: string;
+  affiliateUrl: string;
+}
+
+interface Props {
+  rows: Row[];
+  source?: string;
+}
+
+const { rows, source } = Astro.props;
+
+const fmt = (n?: number) =>
+  n ? new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(n) : '—';
+---
+
+<div class="comparison-wrap">
+  <table class="comparison">
+    <thead>
+      <tr>
+        <th scope="col">Produto</th>
+        <th scope="col">Destaque</th>
+        <th scope="col">Nota</th>
+        <th scope="col">Preço</th>
+        <th scope="col"><span class="visually-hidden">Comprar</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((r) => (
+          <tr>
+            <th scope="row">
+              <strong>{r.name}</strong>
+              {r.brand && <span class="comparison__brand"> · {r.brand}</span>}
+            </th>
+            <td>{r.highlight ?? '—'}</td>
+            <td>{r.rating ? r.rating.toFixed(1) : '—'}</td>
+            <td>{fmt(r.price)}</td>
+            <td>
+              <AffiliateButton href={r.affiliateUrl} source={source} label="Ver preço" />
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>

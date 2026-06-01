@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(node scripts/search-products.mjs \"parafusadeira\" --limit 3 --budget 300 2>&1)",
+      "WebFetch(domain:www.mercadolivre.com.br)",
+      "WebSearch",
+      "WebFetch(domain:mambadigital.com.br)",
+      "WebFetch(domain:afilialink.com.br)"
+    ]
+  }
+}

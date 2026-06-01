@@ -1,0 +1,40 @@
+---
+interface Props {
+  href: string;
+  label?: string;
+  source?: string;
+  block?: boolean;
+}
+
+const { href, label = 'Ver no Mercado Livre', source = 'review', block = false } = Astro.props;
+
+function withTracking(rawUrl: string, src: string): string {
+  try {
+    const url = new URL(rawUrl);
+    if (!url.searchParams.has('utm_source')) {
+      url.searchParams.set('utm_source', 'reformacaseira');
+    }
+    if (!url.searchParams.has('utm_medium')) {
+      url.searchParams.set('utm_medium', 'afiliado');
+    }
+    if (!url.searchParams.has('utm_campaign')) {
+      url.searchParams.set('utm_campaign', src);
+    }
+    return url.toString();
+  } catch {
+    return rawUrl;
+  }
+}
+
+const finalUrl = withTracking(href, source);
+---
+
+<a
+  class:list={['affiliate-btn', { 'affiliate-btn--block': block }]}
+  href={finalUrl}
+  target="_blank"
+  rel="sponsored nofollow noopener noreferrer"
+>
+  {label}
+  <span aria-hidden="true">→</span>
+</a>

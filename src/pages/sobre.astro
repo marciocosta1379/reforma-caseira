@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../config/site';
+---
+
+<BaseLayout
+  title="Sobre"
+  description={`Conheça a ${SITE.name}: como avaliamos ferramentas, nossa metodologia de testes e por que você pode confiar nas recomendações.`}
+>
+  <article class="container prose section">
+    <h1>Sobre a {SITE.name}</h1>
+
+    <p>
+      A {SITE.name} nasceu para resolver um problema simples: quando você quer comprar uma
+      ferramenta nova, a internet está cheia de listas genéricas escritas por quem nunca
+      pegou no produto. Aqui é diferente.
+    </p>
+
+    <h2>Quem somos</h2>
+    <p>
+      Somos uma equipe de marceneiros amadores, reformadores de fim de semana e gente que
+      curte resolver as coisas em casa. Compramos as ferramentas com nosso próprio dinheiro,
+      usamos no dia a dia, e depois compartilhamos o que aprendemos.
+    </p>
+
+    <h2>Como avaliamos</h2>
+    <p>Cada review segue um processo padronizado:</p>
+    <ol>
+      <li>
+        <strong>Uso real:</strong> testamos a ferramenta em projetos concretos por pelo menos
+        2 semanas antes de escrever sobre ela.
+      </li>
+      <li>
+        <strong>Comparação direta:</strong> sempre que possível, comparamos com pelo menos 2
+        concorrentes da mesma faixa de preço.
+      </li>
+      <li>
+        <strong>Critérios objetivos:</strong> medimos potência, autonomia (quando aplicável),
+        precisão, ergonomia e custo-benefício.
+      </li>
+      <li>
+        <strong>Atualização contínua:</strong> revisitamos as reviews quando há lançamentos
+        novos ou mudanças significativas de preço.
+      </li>
+    </ol>
+
+    <h2>Nossa fonte de renda</h2>
+    <p>
+      Mantemos o site através de programas de afiliado. Quando você compra um produto pelo
+      nosso link, recebemos uma pequena comissão — sem custo extra para você. Isso paga as
+      ferramentas que testamos e o tempo dedicado às reviews.
+    </p>
+    <p>
+      <strong>Isso não influencia nossas opiniões.</strong> Já recomendamos produtos baratos
+      em vez de caros e já reprovamos produtos de marcas grandes. O critério é sempre o
+      mesmo: o que oferece o melhor resultado para você.
+    </p>
+
+    <h2>Fale com a gente</h2>
+    <p>
+      Tem uma dúvida, sugestão de review ou correção? <a href="/contato/">Entre em contato</a>.
+    </p>
+  </article>
+</BaseLayout>

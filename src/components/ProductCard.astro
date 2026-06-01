@@ -1,0 +1,60 @@
+---
+import AffiliateButton from './AffiliateButton.astro';
+import ProsCons from './ProsCons.astro';
+
+interface Props {
+  name: string;
+  brand?: string;
+  rating?: number;
+  price?: number;
+  affiliateUrl: string;
+  image?: string;
+  pros?: string[];
+  cons?: string[];
+  rank?: number;
+  source?: string;
+}
+
+const { name, brand, rating, price, affiliateUrl, image, pros, cons, rank, source } = Astro.props;
+
+const priceFmt = price
+  ? new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(price)
+  : null;
+
+const stars = rating ? '★'.repeat(Math.round(rating)) + '☆'.repeat(5 - Math.round(rating)) : null;
+---
+
+<article class="product-card">
+  {rank && <div class="product-card__rank">#{rank}</div>}
+  <div class="product-card__media">
+    {
+      image ? (
+        <img src={image} alt={name} loading="lazy" width="320" height="320" />
+      ) : (
+        <div class="product-card__placeholder" aria-hidden="true">
+          🔧
+        </div>
+      )
+    }
+  </div>
+  <div class="product-card__body">
+    <header>
+      {brand && <p class="product-card__brand">{brand}</p>}
+      <h3 class="product-card__name">{name}</h3>
+      {
+        rating && (
+          <p class="product-card__rating" aria-label={`Nota ${rating} de 5`}>
+            <span class="stars" aria-hidden="true">
+              {stars}
+            </span>
+            <span>{rating.toFixed(1)}</span>
+          </p>
+        )
+      }
+      {priceFmt && <p class="product-card__price">A partir de <strong>{priceFmt}</strong></p>}
+    </header>
+    <slot />
+    {(pros || cons) && <ProsCons pros={pros} cons={cons} />}
+    <AffiliateButton href={affiliateUrl} source={source} block />
+  </div>
+</article>

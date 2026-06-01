@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+
+const categoryLabels: Record<string, string> = {
+  furadeiras: 'Furadeiras',
+  parafusadeiras: 'Parafusadeiras',
+  serras: 'Serras',
+  lixadeiras: 'Lixadeiras',
+  medicao: 'Medição',
+  'ferramentas-manuais': 'Ferramentas manuais',
+  jardinagem: 'Jardinagem',
+  organizacao: 'Organização',
+  guias: 'Guias de compra',
+};
+
+const byCategory = new Map<string, typeof allPosts>();
+for (const post of allPosts) {
+  const arr = byCategory.get(post.data.category) ?? [];
+  arr.push(post);
+  byCategory.set(post.data.category, arr);
+}
+---
+
+<BaseLayout
+  title="Categorias"
+  description="Navegue pelas reviews e guias de compra organizados por tipo de ferramenta."
+>
+  <article class="container section">
+    <h1>Categorias</h1>
+    {
+      [...byCategory.entries()].map(([slug, posts]) => (
+        <section class="category-block">
+          <h2>{categoryLabels[slug] ?? slug}</h2>
+          <ul class="link-list">
+            {posts.map((p) => (
+              <li>
+                <a href={`/posts/${p.slug}/`}>{p.data.title}</a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </article>
+</BaseLayout>

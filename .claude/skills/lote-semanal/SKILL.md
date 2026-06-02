@@ -137,6 +137,20 @@ Após o scaffold, **EDITAR** o arquivo MDX criado para:
   ```
   **Importante:** o texto do `faq` DEVE espelhar o conteúdo visível (exigência do Google) — não invente Q&A que não está no corpo.
 
+### Passo 5b — Escolher os 3 posts em destaque da semana
+
+A home mostra no máximo **3 posts** na seção "⭐ Em destaque" (campo `featured: true` no frontmatter; padrão é `false`).
+
+**A cada lote semanal, escolher os 3 posts da semana com MAIOR apelo** e marcar `featured: true` neles. Deixar os outros 2 como `featured: false`.
+
+Critérios de apelo (em ordem de peso):
+1. **Listicles "Top N"** — atraem mais cliques (títulos com número + benefício)
+2. **Faixa de preço acessível / "custo-benefício"** — maior público
+3. **Categorias de maior procura** (furadeiras, parafusadeiras, serras)
+4. **Comparativos de marcas conhecidas** (Bosch, DeWalt, Makita) — alta intenção
+
+Evitar deixar em destaque os reviews de nicho ou produtos muito caros (apelo menor). Na dúvida, priorizar os listicles sobre os reviews individuais.
+
 ### Passo 6 — Preencher os [TODO]s com conteúdo de qualidade
 
 Estrutura por tipo de post:

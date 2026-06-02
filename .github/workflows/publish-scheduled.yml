@@ -5,6 +5,9 @@ on:
     - cron: '0 10 * * *'  # Todo dia às 07:00 BRT (10:00 UTC)
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   publish:
     runs-on: ubuntu-latest

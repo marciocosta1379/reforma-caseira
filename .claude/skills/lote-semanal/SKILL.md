@@ -128,6 +128,14 @@ Categorias válidas: `furadeiras`, `parafusadeiras`, `serras`, `lixadeiras`, `me
 Após o scaffold, **EDITAR** o arquivo MDX criado para:
 - Definir `pubDate: YYYY-MM-DD` com a data agendada do post
 - Manter `draft: true` (será publicado automaticamente pelo workflow)
+- Definir `author: 'Márcio Costa'` (autor nomeado para E-E-A-T)
+- Adicionar array `faq` no frontmatter espelhando a seção "Perguntas frequentes" do corpo (gera FAQPage schema automático). Texto PLANO, sem markdown. Exemplo:
+  ```yaml
+  faq:
+    - question: 'Pergunta exata da seção FAQ?'
+      answer: 'Resposta em texto plano, igual ao conteúdo visível.'
+  ```
+  **Importante:** o texto do `faq` DEVE espelhar o conteúdo visível (exigência do Google) — não invente Q&A que não está no corpo.
 
 ### Passo 6 — Preencher os [TODO]s com conteúdo de qualidade
 

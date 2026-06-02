@@ -7,12 +7,35 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const POSTS_DIR = join(ROOT, 'src', 'content', 'posts');
 
+const SITE_URL = 'https://reformacaseira.com.br';
+const INDEXNOW_KEY = '6c2beb8606394af3a7e4fb5d28e66d6d';
+
+// Avisa o IndexNow (Bing, Yandex, etc.) sobre URLs novas/atualizadas
+async function pingIndexNow(slugs) {
+  const urlList = [`${SITE_URL}/`, ...slugs.map((s) => `${SITE_URL}/posts/${s}/`)];
+  try {
+    const res = await fetch('https://api.indexnow.org/indexnow', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: JSON.stringify({
+        host: 'reformacaseira.com.br',
+        key: INDEXNOW_KEY,
+        keyLocation: `${SITE_URL}/${INDEXNOW_KEY}.txt`,
+        urlList,
+      }),
+    });
+    console.log(`IndexNow: HTTP ${res.status} — ${urlList.length} URL(s) enviada(s) ao Bing.`);
+  } catch (err) {
+    console.error('IndexNow falhou (ignorado):', err.message);
+  }
+}
+
 async function main() {
   const now = new Date();
   const files = await readdir(POSTS_DIR);
   const mdxFiles = files.filter((f) => f.endsWith('.mdx') || f.endsWith('.md'));
 
-  let published = 0;
+  const publishedSlugs = [];
 
   for (const file of mdxFiles) {
     const filePath = join(POSTS_DIR, file);
@@ -36,16 +59,18 @@ async function main() {
 
     const updated = content.replace(/^draft:\s*true$/m, 'draft: false');
     await writeFile(filePath, updated, 'utf-8');
-    published++;
+    publishedSlugs.push(file.replace(/\.mdx?$/, ''));
   }
 
-  if (published === 0) {
+  if (publishedSlugs.length === 0) {
     console.log('Nenhum post agendado para publicar hoje.');
     return;
   }
 
-  console.log(`\n${published} post(s) publicado(s). Fazendo deploy...`);
+  console.log(`\n${publishedSlugs.length} post(s) publicado(s). Fazendo deploy...`);
   execSync('npm run deploy', { cwd: ROOT, stdio: 'inherit' });
+
+  await pingIndexNow(publishedSlugs);
 }
 
 main().catch((err) => {

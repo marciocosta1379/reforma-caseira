@@ -112,7 +112,7 @@ function formatDate(date: Date) {
             </div>
             <div class="post-card__body">
               <span class="badge badge--orange">{post.data.category}</span>
-              <a href={`/posts/${post.slug}/`}>
+              <a href={`/posts/${post.slug}/`} class="post-card__link">
                 <h3>{post.data.title}</h3>
               </a>
               <p class="post-card__excerpt">{post.data.description}</p>
@@ -156,7 +156,7 @@ function formatDate(date: Date) {
             </div>
             <div class="post-card__body">
               <span class="badge">{post.data.category}</span>
-              <a href={`/posts/${post.slug}/`}>
+              <a href={`/posts/${post.slug}/`} class="post-card__link">
                 <h3>{post.data.title}</h3>
               </a>
               <p class="post-card__excerpt">{post.data.description}</p>

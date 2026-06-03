@@ -1,8 +1,8 @@
 name: Publicar Posts Agendados
 
 on:
-  schedule:
-    - cron: '0 10 * * *'  # Todo dia às 07:00 BRT (10:00 UTC)
+  # Agendamento agora é feito pelo n8n na VPS (dispara via workflow_dispatch).
+  # Cron do GitHub removido por ser instável (execuções puladas). Ver n8n/README.md.
   workflow_dispatch:
 
 permissions:

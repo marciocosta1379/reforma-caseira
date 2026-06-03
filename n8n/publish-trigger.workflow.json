@@ -1,0 +1,381 @@
+{
+  "name": "Reforma Caseira — Publicar posts (07h BRT)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 7 * * *"
+            }
+          ]
+        }
+      },
+      "id": "node-schedule",
+      "name": "07h BRT (diário)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -100,
+        300
+      ],
+      "notes": "Timezone da workflow = America/Sao_Paulo (Settings da workflow). Se preferir UTC, troque para 0 10 * * *."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.github.com/repos/marciocosta1379/reforma-caseira/actions/workflows/publish-scheduled.yml/dispatches",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Accept", "value": "application/vnd.github+json" },
+            { "name": "X-GitHub-Api-Version", "value": "2022-11-28" },
+            { "name": "User-Agent", "value": "n8n-reformacaseira" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"ref\": \"main\"\n}",
+        "options": {}
+      },
+      "id": "node-dispatch-1",
+      "name": "Disparar workflow (1ª)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        140,
+        300
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_CREDENTIAL_ID",
+          "name": "GitHub PAT (Bearer)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 180,
+        "unit": "seconds"
+      },
+      "id": "node-wait-1",
+      "name": "Esperar 3 min",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        360,
+        300
+      ],
+      "webhookId": "reforma-wait-1"
+    },
+    {
+      "parameters": {
+        "url": "https://api.github.com/repos/marciocosta1379/reforma-caseira/actions/runs",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Accept", "value": "application/vnd.github+json" },
+            { "name": "X-GitHub-Api-Version", "value": "2022-11-28" },
+            { "name": "User-Agent", "value": "n8n-reformacaseira" }
+          ]
+        },
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            { "name": "event", "value": "workflow_dispatch" },
+            { "name": "per_page", "value": "1" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "node-getrun-1",
+      "name": "Conferir run (1ª)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        580,
+        300
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_CREDENTIAL_ID",
+          "name": "GitHub PAT (Bearer)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "leftValue": "={{ $json.workflow_runs[0].conclusion }}",
+              "rightValue": "success",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "node-if-1",
+      "name": "Publicou?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        800,
+        300
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "node-ok-1",
+      "name": "OK (1ª tentativa)",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        180
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.github.com/repos/marciocosta1379/reforma-caseira/actions/workflows/publish-scheduled.yml/dispatches",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Accept", "value": "application/vnd.github+json" },
+            { "name": "X-GitHub-Api-Version", "value": "2022-11-28" },
+            { "name": "User-Agent", "value": "n8n-reformacaseira" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"ref\": \"main\"\n}",
+        "options": {}
+      },
+      "id": "node-dispatch-2",
+      "name": "Disparar workflow (retry)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1040,
+        400
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_CREDENTIAL_ID",
+          "name": "GitHub PAT (Bearer)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 180,
+        "unit": "seconds"
+      },
+      "id": "node-wait-2",
+      "name": "Esperar 3 min (retry)",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1260,
+        400
+      ],
+      "webhookId": "reforma-wait-2"
+    },
+    {
+      "parameters": {
+        "url": "https://api.github.com/repos/marciocosta1379/reforma-caseira/actions/runs",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Accept", "value": "application/vnd.github+json" },
+            { "name": "X-GitHub-Api-Version", "value": "2022-11-28" },
+            { "name": "User-Agent", "value": "n8n-reformacaseira" }
+          ]
+        },
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            { "name": "event", "value": "workflow_dispatch" },
+            { "name": "per_page", "value": "1" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "node-getrun-2",
+      "name": "Conferir run (retry)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1480,
+        400
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_CREDENTIAL_ID",
+          "name": "GitHub PAT (Bearer)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "leftValue": "={{ $json.workflow_runs[0].conclusion }}",
+              "rightValue": "success",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "node-if-2",
+      "name": "Publicou no retry?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1700,
+        400
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "node-ok-2",
+      "name": "OK (retry)",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1940,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "REPLACE_CHAT_ID",
+        "text": "=⚠️ *Reforma Caseira* — publicação do post de {{ $now.format('dd/MM/yyyy') }} FALHOU mesmo após retry.\n\nÚltimo run: {{ $json.workflow_runs[0].html_url }}\nConclusão: {{ $json.workflow_runs[0].conclusion }}\n\nProvável timeout de FTP na Hostinger. Rode o workflow manualmente ou verifique a Hostinger.",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "node-telegram",
+      "name": "Alertar no Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1940,
+        500
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "REPLACE_TELEGRAM_CREDENTIAL_ID",
+          "name": "Telegram Bot"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "07h BRT (diário)": {
+      "main": [
+        [
+          { "node": "Disparar workflow (1ª)", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Disparar workflow (1ª)": {
+      "main": [
+        [
+          { "node": "Esperar 3 min", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Esperar 3 min": {
+      "main": [
+        [
+          { "node": "Conferir run (1ª)", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Conferir run (1ª)": {
+      "main": [
+        [
+          { "node": "Publicou?", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Publicou?": {
+      "main": [
+        [
+          { "node": "OK (1ª tentativa)", "type": "main", "index": 0 }
+        ],
+        [
+          { "node": "Disparar workflow (retry)", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Disparar workflow (retry)": {
+      "main": [
+        [
+          { "node": "Esperar 3 min (retry)", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Esperar 3 min (retry)": {
+      "main": [
+        [
+          { "node": "Conferir run (retry)", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Conferir run (retry)": {
+      "main": [
+        [
+          { "node": "Publicou no retry?", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Publicou no retry?": {
+      "main": [
+        [
+          { "node": "OK (retry)", "type": "main", "index": 0 }
+        ],
+        [
+          { "node": "Alertar no Telegram", "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo"
+  },
+  "active": false
+}

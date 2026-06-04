@@ -1,8 +1,13 @@
 # n8n — Trigger de publicação (Opção B)
 
-Substitui o cron (instável) do GitHub Actions. O n8n agenda às **07h BRT**, dispara o
-workflow `publish-scheduled.yml` via `workflow_dispatch`, confere o resultado e, se o
-deploy FTP falhar, **redispara 1x** e avisa no **Telegram**.
+Substitui o cron (instável) do GitHub Actions. O n8n agenda às **06h e 07h BRT** (duas
+regras de cron — a 2ª é rede de segurança caso a 1ª falhe), dispara o workflow
+`publish-scheduled.yml` via `workflow_dispatch`, confere o resultado e, se o deploy FTP
+falhar, **redispara 1x** e avisa no **Telegram**.
+
+> Duas execuções/dia são seguras: o `publish-scheduled.mjs` é idempotente — se o post já
+> foi publicado, o run seguinte não acha nada pra publicar e sai sem deploy (sem
+> duplicação, sem alerta falso).
 
 O build, commit e deploy FTP continuam rodando no GitHub Actions (nada na VPS precisa de
 repo, Node ou credenciais FTP).

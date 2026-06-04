@@ -7,13 +7,17 @@
           "interval": [
             {
               "field": "cronExpression",
+              "expression": "0 0 6 * * *"
+            },
+            {
+              "field": "cronExpression",
               "expression": "0 0 7 * * *"
             }
           ]
         }
       },
       "id": "node-schedule",
-      "name": "07h BRT (diário)",
+      "name": "06h e 07h BRT (diário)",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
@@ -303,7 +307,7 @@
     }
   ],
   "connections": {
-    "07h BRT (diário)": {
+    "06h e 07h BRT (diário)": {
       "main": [
         [
           { "node": "Disparar workflow (1ª)", "type": "main", "index": 0 }

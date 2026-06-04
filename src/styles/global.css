@@ -206,12 +206,11 @@ li { margin-bottom: 0.4em; }
   background: var(--color-teal-light);
   color: var(--color-teal-hover);
 }
-.site-header nav a.nav-cta {
+.site-header nav a[aria-current="page"] {
   background: var(--color-orange);
   color: #fff;
-  padding: 0.5rem 1.1rem;
 }
-.site-header nav a.nav-cta:hover {
+.site-header nav a[aria-current="page"]:hover {
   background: var(--color-orange-hover);
   color: #fff;
 }

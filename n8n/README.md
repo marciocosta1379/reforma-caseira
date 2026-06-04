@@ -41,3 +41,15 @@ ter duas execuções/dia. **Não remova** o `workflow_dispatch` — é o que o n
 ## Testar agora
 Na workflow, clique **Execute Workflow** (ou no nó schedule → Execute). Deve disparar
 um run no GitHub Actions e, ~3 min depois, confirmar sucesso.
+
+## ⚠️ Pegadinha do cron (rodava manual mas não sozinho)
+O Schedule Trigger do n8n usa cron de **6 campos, começando por SEGUNDOS**:
+`[Segundo] [Minuto] [Hora] [Dia] [Mês] [Dia da semana]`.
+
+- ✅ Correto para 07:00 BRT: **`0 0 7 * * *`**
+- ❌ Errado (cron Unix de 5 campos): `0 7 * * *` — o parser lê errado e o agendamento não dispara.
+
+Se mexer no fluxo e o disparo automático parar: confira a expressão (6 campos), o
+Timezone da workflow (`America/Sao_Paulo`) e **desative/reative** o toggle pra
+re-registrar o agendamento. O "Execute Workflow" funciona mesmo inativo — não serve
+como prova de que o agendamento está ok.

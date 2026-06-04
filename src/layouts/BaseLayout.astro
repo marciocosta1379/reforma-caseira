@@ -27,6 +27,10 @@ const {
 const pageTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} — ${SITE.tagline}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 
+// Versão dos assets de nome fixo (favicon, logo). Suba este número ao trocar
+// o arquivo para furar o cache do navegador (.htaccess os marca como immutable).
+const ASSET_V = '2';
+
 // Marca o item de menu da seção atualmente visível
 const navPath = Astro.url.pathname;
 const isNavActive = (href: string) =>
@@ -55,7 +59,7 @@ const websiteSchema = {
     <link rel="canonical" href={canonicalURL} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={`/favicon.svg?v=${ASSET_V}`} />
     <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
 
     <!-- Open Graph -->
@@ -99,7 +103,7 @@ const websiteSchema = {
       <div class="header-inner">
         <a href="/" class="logo" aria-label="Reforma Caseira - Início">
           <img
-            src="/logo.png"
+            src={`/logo.png?v=${ASSET_V}`}
             alt="Reforma Caseira"
             width="160"
             height="60"
@@ -135,7 +139,7 @@ const websiteSchema = {
       <div class="footer-grid">
         <div class="footer-brand">
           <img
-            src="/logo.png"
+            src={`/logo.png?v=${ASSET_V}`}
             alt="Reforma Caseira"
             onerror="this.style.display='none'"
           />

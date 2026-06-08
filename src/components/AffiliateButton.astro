@@ -1,12 +1,23 @@
 ---
+type Store = 'mercadolivre' | 'hotmart';
+
 interface Props {
   href: string;
+  store?: Store;
   label?: string;
   source?: string;
   block?: boolean;
 }
 
-const { href, label = 'Ver no Mercado Livre', source = 'review', block = false } = Astro.props;
+const STORE_META: Record<Store, { label: string; class: string }> = {
+  mercadolivre: { label: 'Ver no Mercado Livre', class: '' },
+  hotmart: { label: 'Conhecer o curso', class: 'affiliate-btn--hotmart' },
+};
+
+const { href, store = 'mercadolivre', label, source = 'review', block = false } = Astro.props;
+
+const meta = STORE_META[store] ?? STORE_META.mercadolivre;
+const finalLabel = label ?? meta.label;
 
 function withTracking(rawUrl: string, src: string): string {
   try {
@@ -30,11 +41,11 @@ const finalUrl = withTracking(href, source);
 ---
 
 <a
-  class:list={['affiliate-btn', { 'affiliate-btn--block': block }]}
+  class:list={['affiliate-btn', meta.class, { 'affiliate-btn--block': block }]}
   href={finalUrl}
   target="_blank"
   rel="sponsored nofollow noopener noreferrer"
 >
-  {label}
+  {finalLabel}
   <span aria-hidden="true">→</span>
 </a>

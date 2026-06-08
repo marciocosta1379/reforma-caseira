@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE, AUTHOR } from '../config/site';
+import { SITE, AUTHOR, NETWORK } from '../config/site';
 
 const personSchema = {
   '@context': 'https://schema.org',
@@ -76,15 +76,33 @@ const personSchema = {
 
     <h2>Nossa fonte de renda</h2>
     <p>
-      Mantemos o site através do programa de afiliados do Mercado Livre. Quando você compra um
-      produto pelo nosso link, recebemos uma pequena comissão — sem custo extra para você. Isso
-      paga o tempo dedicado à pesquisa e à manutenção do site.
+      Mantemos o site através de programas de afiliados — principalmente o <strong>Mercado
+      Livre</strong>, além de cursos na <strong>Hotmart</strong>. Quando você compra por um dos
+      nossos links, recebemos uma pequena comissão, sem custo extra para você. Isso paga o tempo
+      dedicado à pesquisa e à manutenção do site.
+    </p>
+    <p>
+      <strong>Transparência:</strong> nossa conta de afiliado do Mercado Livre é a mesma de toda a
+      nossa rede de sites, então, ao clicar num link do Mercado Livre, a recomendação aparece com
+      o nome <strong>Rede Caseira</strong>. É a mesma pessoa por trás — pode comprar tranquilo.
     </p>
     <p>
       <strong>Isso não influencia nossas opiniões.</strong> Já recomendamos produtos baratos em
       vez de caros e já apontamos defeitos de marcas grandes. O critério é sempre o mesmo: o que
       oferece o melhor resultado para você.
     </p>
+
+    <h2>A nossa rede</h2>
+    <p>
+      A {SITE.name} faz parte de uma pequena rede de sites sobre a casa, todos mantidos por mim:
+    </p>
+    <ul>
+      {NETWORK.map((s) => (
+        <li>
+          <a href={s.url} target="_blank" rel="noopener">{s.name}</a> — {s.blurb}
+        </li>
+      ))}
+    </ul>
 
     <h2>Fale com a gente</h2>
     <p>

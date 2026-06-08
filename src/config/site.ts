@@ -20,3 +20,17 @@ export const AUTHOR = {
   bio: 'Criou a Reforma Caseira para ajudar quem encara reformas e marcenaria amadora a escolher ferramentas sem cair em listas genéricas. Cada recomendação passa pela metodologia de pesquisa do site: especificações oficiais, avaliações reais de compradores e checagem de reclamações.',
   url: 'https://reformacaseira.com.br/sobre/',
 } as const;
+
+// Rede de sites do mesmo autor (disclosure honesta na página Sobre / caixa de autor).
+export const NETWORK = [
+  {
+    name: 'Abanou',
+    url: 'https://abanou.com.br',
+    blurb: 'Reviews de produtos para cães e gatos.',
+  },
+  {
+    name: 'Nerd Caseiro',
+    url: 'https://nerdcaseiro.com.br',
+    blurb: 'Automação, gadgets e impressão 3D pra sua casa.',
+  },
+] as const;

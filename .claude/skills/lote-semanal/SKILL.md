@@ -35,30 +35,38 @@ Antes de começar, confirme:
 
 Apresente em formato de tabela. Só prossiga após confirmação.
 
-### Passo 1 — Pesquisa no painel de afiliados ML (via Chrome)
+### Passo 1 — Coletar link de afiliado ML (MÉTODO CANÔNICO — testado)
 
-Para cada post:
+⚠️ **NUNCA gere link a partir de uma URL de BUSCA** (`lista.mercadolivre.com.br/...`) nem do Link
+Builder com URL de busca — isso aponta pro resultado de busca, não pro produto. **Sempre use a
+PÁGINA DO PRODUTO específico.**
 
-1. Navegar para `https://www.mercadolivre.com.br/afiliados/hub`
-2. Buscar produtos do tema no campo "Busque produtos"
-3. Para listicle: coletar **5-7 produtos**. Para comparativo: **2-3 produtos**. Para review: **1 produto**.
-4. Para cada produto, coletar do card:
-   - **Nome completo**
-   - **Marca** (extrair do nome se possível)
-   - **Preço** (em R$)
-   - **Rating** (estrelas)
-   - **Quantidade vendida** (ex: "+1mil vendidos")
-   - **% de comissão** (badge "GANHOS X%")
-   - **URL da imagem** (atributo src do `<img>`)
+Via Claude in Chrome, use **`javascript_tool`** (NÃO screenshots/`read_page`: páginas do ML penduram
+no `document_idle` e estouram). Para cada produto (listicle 5-7, comparativo 2-3, review 1):
 
-5. Clicar em **Compartilhar** → **Copiar link** para cada produto:
-   ```js
-   navigator.clipboard.readText().then(t => window.__clipResult = t);
-   // Aguarde 500ms, depois:
-   window.__clipResult
-   // Retorna: "https://meli.la/XXXXXXX"
-   ```
-6. Esse link `meli.la/XXX` é o `affiliateUrl`
+1. **Achar o produto:** navegue numa busca (`lista.mercadolivre.com.br/<query>`) e pegue o **1º
+   resultado ORGÂNICO** (pule patrocinados: href com `click1`/`mclics`). URL limpa do produto:
+   `/p/MLB\d+`, `produto.mercadolivre.com.br/MLB-\d+` ou `/up/MLBU\d+` (corte `?`/`#`).
+2. **Navegue para a página do produto** e num único `javascript_tool` colete:
+   - **Preço:** `document.querySelector('[itemprop="price"]')?.getAttribute('content')` (confiável;
+     NÃO leia carrossel/parcela "12x" — dá valor errado).
+   - **Imagem:** `[...document.querySelectorAll('figure img,[class*="gallery"] img')].find(i=>/mlstatic/.test(i.src))`
+     (para baixar em alta use a variante `D_Q_NP_2X_..._-E.webp`).
+   - **Link de afiliado:** clique `document.querySelector('.generate_link_button')` e leia o
+     `meli.la/CODE` novo que aparece no DOM:
+     ```js
+     const before = new Set([...document.body.innerText.matchAll(/meli\.la\/([A-Za-z0-9]+)/g)].map(m=>m[1]));
+     document.querySelector('.generate_link_button').click();
+     // poll a cada 500ms por um meli.la/CODE que não estava em `before`
+     ```
+   Esse `meli.la/CODE` é o `affiliateUrl`.
+
+**Pegadinhas (observadas na prática):**
+- O **filtro de privacidade** bloqueia retornar strings com cookie/query-string — retorne **só o CODE**, nunca URLs com `?...`.
+- O **clipboard fica bloqueado** — leia o `meli.la` do DOM, não de `navigator.clipboard`.
+- O código é **determinístico por produto+conta** (regerar o mesmo produto dá o mesmo código).
+- Páginas que não carregam (título "(1)"/vazio) → pegue outro produto.
+- **UTM no `meli.la` é OK** (o `AffiliateButton` anexa `utm_source=reformacaseira...`).
 
 ### Passo 2 — Pesquisa externa para análise fidedigna
 
@@ -158,9 +166,10 @@ Estrutura por tipo de post:
 **Listicle (Top N):**
 - Introdução (200-300 palavras): problema, metodologia, para quem é
 - Seção "Como avaliamos": critérios objetivos
-- Tabela comparativa (componente `<ComparisonTable>`)
+- Tabela comparativa (componente `<ComparisonTable>` com `price`)
 - Para cada produto (150-300 palavras):
-  - Foto, preço, vendidos
+  - **Imagem inline no corpo:** logo após o `## N. Produto`, insira `![Nome](/images/produtos/<id>.webp)`. Não basta a foto no card do rodapé — o leitor quer ver o produto na seção que está lendo.
+  - Preço, vendidos
   - Análise baseada nos reviews reais pesquisados
   - 2-3 prós reais (de fontes externas)
   - 2-3 contras reais (de fontes externas)

@@ -1,3 +1,10 @@
+# Canonical domain: redireciona www → não-www
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^www\.reformacaseira\.com\.br$ [NC]
+  RewriteRule ^(.*)$ https://reformacaseira.com.br/$1 [R=301,L]
+</IfModule>
+
 # Cache de recursos estáticos
 <IfModule mod_expires.c>
   ExpiresActive On

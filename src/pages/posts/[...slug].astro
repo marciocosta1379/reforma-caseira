@@ -51,6 +51,11 @@ const productSchemas = products.map((p, i) => ({
   '@context': 'https://schema.org',
   '@type': 'Product',
   name: p.name,
+  description: p.pros?.length
+    ? p.pros.join('. ')
+    : p.brand
+      ? `${p.brand} — ${p.name}`
+      : p.name,
   brand: p.brand ? { '@type': 'Brand', name: p.brand } : undefined,
   image: p.image,
   offers: p.price
@@ -60,6 +65,18 @@ const productSchemas = products.map((p, i) => ({
         priceCurrency: 'BRL',
         availability: 'https://schema.org/InStock',
         url: p.affiliateUrl,
+        shippingDetails: {
+          '@type': 'OfferShippingDetails',
+          shippingRate: { '@type': 'MonetaryAmount', currency: 'BRL' },
+          shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'BR' },
+        },
+        hasMerchantReturnPolicy: {
+          '@type': 'MerchantReturnPolicy',
+          applicableCountry: 'BR',
+          returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+          merchantReturnDays: 7,
+          returnMethod: 'https://schema.org/ReturnByMail',
+        },
       }
     : undefined,
   review: p.rating

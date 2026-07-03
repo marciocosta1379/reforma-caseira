@@ -67,8 +67,13 @@ const productSchemas = products.filter((p) => p.price != null).map((p, i) => ({
         url: p.affiliateUrl,
         shippingDetails: {
           '@type': 'OfferShippingDetails',
-          shippingRate: { '@type': 'MonetaryAmount', currency: 'BRL' },
+          shippingRate: { '@type': 'MonetaryAmount', minValue: 0, maxValue: 50, currency: 'BRL' },
           shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'BR' },
+          deliveryTime: {
+            '@type': 'ShippingDeliveryTime',
+            handlingTime: { '@type': 'QuantitativeValue', minValue: 0, maxValue: 1, unitCode: 'DAY' },
+            transitTime: { '@type': 'QuantitativeValue', minValue: 2, maxValue: 10, unitCode: 'DAY' },
+          },
         },
         hasMerchantReturnPolicy: {
           '@type': 'MerchantReturnPolicy',
@@ -76,6 +81,7 @@ const productSchemas = products.filter((p) => p.price != null).map((p, i) => ({
           returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
           merchantReturnDays: 7,
           returnMethod: 'https://schema.org/ReturnByMail',
+          returnFees: 'https://schema.org/FreeReturn',
         },
       }
     : undefined,

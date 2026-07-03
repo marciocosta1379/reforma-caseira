@@ -22,7 +22,7 @@ const DIST_DIR = join(ROOT, 'dist');
 const REMOTE_DIR = HOSTINGER_FTP_DIR || '/public_html';
 
 async function main() {
-  const client = new Client();
+  const client = new Client(60_000);
   client.ftp.verbose = false;
 
   try {
@@ -37,7 +37,6 @@ async function main() {
 
     console.log(`Conectado. Enviando dist/ para ${REMOTE_DIR}...`);
     await client.ensureDir(REMOTE_DIR);
-    await client.clearWorkingDir();
     await client.uploadFromDir(DIST_DIR, REMOTE_DIR);
 
     console.log('Deploy concluído com sucesso!');

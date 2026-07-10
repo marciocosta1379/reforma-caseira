@@ -15,7 +15,11 @@ npm run deploy       # Build + upload FTP para Hostinger
 npm run search       # Busca produtos no ML (alias de search-products.mjs)
 npm run scaffold     # Gera MDX a partir de JSON de produtos
 npm run publish-scheduled  # Publica posts agendados com pubDate <= hoje
+npm run ml-scrape -- "<url1>" "<url2>"  # Coleta nome/preço/nota/imagem de produtos ML via Chrome real (CDP)
 ```
+
+### ⚠️ Pesquisa de produtos no Mercado Livre (atualizado 10/07/2026)
+Desde 09/07/2026 o ML bloqueia acesso automatizado por qualquer via direta — WebFetch e `curl` caem num redirect de verificação anti-bot (`gz/account-verification`), e a API oficial responde 404/403 mesmo com token válido. O que funciona: um Chrome **de verdade** controlado via CDP (`scripts/ml-cdp.mjs`), no mesmo molde do `petz-cdp.mjs` do Abanou. Abra o Chrome com `--remote-debugging-port=9222 --user-data-dir=<pasta temp>` antes de rodar `npm run ml-scrape`. Para página de catálogo com variação (cor/voltagem) sem opção selecionada, o preço vem `null` — use `ml-cdp-nav.mjs` para abrir a página, escolha a variante na janela do Chrome, e `ml-cdp-read.mjs` lê a página atual sem navegar de novo. **Todo preço extraído é provisório** — confirme com o usuário antes de publicar.
 
 ## Workflow para criar um novo post
 

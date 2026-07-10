@@ -14,6 +14,7 @@
     "scaffold": "node scripts/scaffold-post.mjs",
     "publish-scheduled": "node scripts/publish-scheduled.mjs",
     "update-prices": "node scripts/update-prices.mjs",
+    "ml-scrape": "node scripts/ml-cdp.mjs",
     "astro": "astro"
   },
   "dependencies": {

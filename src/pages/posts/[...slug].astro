@@ -114,6 +114,7 @@ const formattedDate = data.pubDate.toLocaleDateString('pt-BR', {
   day: '2-digit',
   month: 'long',
   year: 'numeric',
+  timeZone: 'UTC',
 });
 ---
 
@@ -165,7 +166,7 @@ const formattedDate = data.pubDate.toLocaleDateString('pt-BR', {
               {' '}· Atualizado em
               <time datetime={data.updatedDate.toISOString()}>
                 {' '}
-                {data.updatedDate.toLocaleDateString('pt-BR')}
+                {data.updatedDate.toLocaleDateString('pt-BR', { timeZone: 'UTC' })}
               </time>
             </>
           )

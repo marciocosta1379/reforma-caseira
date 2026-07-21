@@ -94,8 +94,8 @@ import ProductCard from '../../components/ProductCard.astro';
 - Todo post DEVE ter `<AffiliateDisclosure />` (já incluído automaticamente pelo template `[...slug].astro`)
 - Links de afiliado usam `rel="sponsored nofollow noopener noreferrer"`
 - UTM source é sempre `reformacaseira`
-- Títulos têm máximo 70 caracteres
-- Descrições meta têm máximo 160 caracteres
+- Títulos entre 40-70 caracteres (não só o máximo — o Bing Webmaster Tools sinaliza título curto demais como erro de SEO)
+- Descrições meta entre 120-160 caracteres (mesma lógica — evitar descrição genérica de uma linha)
 - Posts saem com `draft: true` por padrão — mudar para `false` para publicar
 
 ## Estratégia de Conteúdo

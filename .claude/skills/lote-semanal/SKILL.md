@@ -1,36 +1,39 @@
 ---
 name: lote-semanal
-description: Gera 5 posts (segunda a sexta) para o Blog Reforma Caseira em sequência. Use quando o usuário digitar /lote-semanal seguido da semana e temas, ou pedir explicitamente para "gerar a semana" ou "criar os posts da semana". Cada post é uma listicle, comparativo ou review baseado no mix editorial 60/20/20.
+description: Gera 7 posts (segunda a domingo) para o Blog Reforma Caseira em sequência. Use quando o usuário digitar /lote-semanal seguido da semana e temas, ou pedir explicitamente para "gerar a semana" ou "criar os posts da semana". Cada post é uma listicle, comparativo ou review baseado no mix editorial.
 ---
 
 # Skill: Lote Semanal de Posts
 
 ## Quando usar
 
-Quando o usuário pedir para gerar os 5 posts da próxima semana (segunda a sexta) em lote. Exemplos:
+Quando o usuário pedir para gerar os 7 posts da próxima semana (segunda a domingo — cadência
+diária desde 21/07/2026, antes era só seg-sex) em lote. Exemplos:
 
-- `/lote-semanal 2026-06-08 parafusadeiras-baratas furadeiras-impacto serras-tico-tico lixadeiras parafusadeiras-pro`
+- `/lote-semanal 2026-06-08 parafusadeiras-baratas furadeiras-impacto serras-tico-tico lixadeiras parafusadeiras-pro ... ...`
 - "vamos gerar a semana de 8/jun com esses temas..."
 - "cria os posts pra próxima semana"
 
-Se o usuário não passar temas, sugira 5 baseados em buscas atuais no painel ML.
+Se o usuário não passar temas, sugira 7 baseados em buscas atuais no painel ML.
 
-## Estratégia editorial (60/20/20)
+## Estratégia editorial
 
-Para cada semana de 5 posts:
+Para cada semana de 7 posts:
 - **3 listicles** (Top N) — segunda, quarta, sexta — tráfego alto, múltiplos pontos de saída
 - **1 comparativo** (X vs Y) — terça — alta conversão
 - **1 review individual** — quinta — autoridade + nicho
+- **2 reviews individuais** — sábado e domingo — padrão default de fim de semana
 
-Adapte se o usuário preferir mais comparativos ou reviews.
+Adapte se o usuário preferir mais comparativos, outro tipo, ou tema/loja específico para uma
+data pontual (ex.: pediu Amazon como loja numa semana específica).
 
 ## Fluxo passo-a-passo
 
 ### Passo 0 — Confirmar com o usuário
 
 Antes de começar, confirme:
-1. Quais são as 5 datas (calcule seg-sex a partir da data fornecida)
-2. Quais são os 5 temas
+1. Quais são as 7 datas (calcule seg-dom a partir da data fornecida)
+2. Quais são os 7 temas
 3. Qual tipo (listicle/comparativo/review) para cada
 
 Apresente em formato de tabela. Só prossiga após confirmação.

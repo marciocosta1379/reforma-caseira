@@ -2,7 +2,9 @@
 
 ## Projeto
 
-Site estático em **Astro 4** com MDX, hospedado na Hostinger (FTP). Monetizado via programa de afiliados do Mercado Livre. Nicho: ferramentas elétricas/manuais para reformas, marcenaria amadora e DIY doméstico.
+Site estático em **Astro 4** com MDX, hospedado na Hostinger (FTP). Monetizado principalmente via programa de afiliados do Mercado Livre. Nicho: ferramentas elétricas/manuais para reformas, marcenaria amadora e DIY doméstico.
+
+⚠️ **Amazon Associados (secundária, cadastrada em 21/07/2026, ainda não usada em conteúdo):** ID de rastreamento próprio em `.env` (`AMAZON_AFFILIATE_TAG=reformacaseira-20`). Cada site da rede tem o seu: `reformacaseira-20`, `nerdcaseiro-20`, `abanou-20` — não são intercambiáveis.
 
 Domínio: `reformacaseira.com.br`
 
@@ -96,13 +98,15 @@ import ProductCard from '../../components/ProductCard.astro';
 - Descrições meta têm máximo 160 caracteres
 - Posts saem com `draft: true` por padrão — mudar para `false` para publicar
 
-## Estratégia de Conteúdo (mix editorial 60/20/20)
+## Estratégia de Conteúdo
 
-5 posts por semana (segunda a sexta), gerados em lote no fim de semana via skill `/lote-semanal`:
+7 posts por semana (segunda a domingo — cadência diária desde 21/07/2026, antes era só segunda a
+sexta), gerados em lote via skill `/lote-semanal`:
 
-- **60% Listicles "Top N"** (3 posts/sem — seg, qua, sex): tráfego alto, múltiplos pontos de saída
-- **20% Comparativos "X vs Y"** (1 post/sem — ter): alta conversão (EPC até 15x maior)
-- **20% Reviews individuais** (1 post/sem — qui): autoridade + nicho
+- **Listicles "Top N"** (3 posts/sem — seg, qua, sex): tráfego alto, múltiplos pontos de saída
+- **Comparativo "X vs Y"** (1 post/sem — ter): alta conversão (EPC até 15x maior)
+- **Review individual** (1 post/sem — qui): autoridade + nicho
+- **2 posts de fim de semana** (sáb, dom): tipo/tema flexível, confirmar caso a caso
 
 ### Diretrizes de tom
 

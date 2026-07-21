@@ -1,5 +1,5 @@
 ---
-type Store = 'mercadolivre' | 'hotmart';
+type Store = 'mercadolivre' | 'amazon' | 'hotmart';
 
 interface Props {
   href: string;
@@ -11,6 +11,7 @@ interface Props {
 
 const STORE_META: Record<Store, { label: string; class: string }> = {
   mercadolivre: { label: 'Ver no Mercado Livre', class: '' },
+  amazon: { label: 'Ver na Amazon', class: 'affiliate-btn--amazon' },
   hotmart: { label: 'Conhecer o curso', class: 'affiliate-btn--hotmart' },
 };
 

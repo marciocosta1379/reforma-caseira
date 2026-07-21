@@ -23,6 +23,11 @@
   --color-ml-hover: #f5d800;
   --color-ml-text: #1a1a6e;
 
+  /* Amazon */
+  --color-amazon: #ff9900;
+  --color-amazon-hover: #e88a00;
+  --color-amazon-text: #0f1111;
+
   /* Hotmart (cursos) */
   --color-hotmart: #f04e23;
   --color-hotmart-hover: #d8400f;
@@ -582,6 +587,8 @@ li { margin-bottom: 0.4em; }
 .affiliate-btn--block { display: flex; width: 100%; }
 .affiliate-btn--hotmart { background: var(--color-hotmart); color: var(--color-hotmart-text); box-shadow: 0 2px 8px rgba(240,78,35,0.35); }
 .affiliate-btn--hotmart:hover { background: var(--color-hotmart-hover); color: var(--color-hotmart-text); box-shadow: 0 4px 14px rgba(240,78,35,0.5); }
+.affiliate-btn--amazon { background: var(--color-amazon); color: var(--color-amazon-text); box-shadow: 0 2px 8px rgba(255,153,0,0.35); }
+.affiliate-btn--amazon:hover { background: var(--color-amazon-hover); color: var(--color-amazon-text); box-shadow: 0 4px 14px rgba(255,153,0,0.5); }
 .nav-search { display: flex; align-items: center; padding: 0.25rem; color: var(--color-text-soft); transition: color 0.15s; }
 .nav-search:hover { color: var(--color-orange); }
 

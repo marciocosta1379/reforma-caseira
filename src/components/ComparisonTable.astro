@@ -1,24 +1,50 @@
 ---
 import AffiliateButton from './AffiliateButton.astro';
 
+type Store = 'mercadolivre' | 'amazon' | 'hotmart';
+
+interface StoreLink {
+  store: Store;
+  url: string;
+}
+
 interface Row {
   name: string;
   brand?: string;
   price?: number;
   rating?: number;
   highlight?: string;
-  affiliateUrl: string;
+  stores?: StoreLink[];
+  affiliateUrl?: string;
+  store?: Store;
 }
 
 interface Props {
   rows: Row[];
   source?: string;
+  priceDate?: string;
 }
 
-const { rows, source } = Astro.props;
+const { rows, source, priceDate } = Astro.props;
+
+// Detecta a loja pela URL quando a linha usa o formato antigo (affiliateUrl solto).
+const storeFromUrl = (url: string): Store =>
+  /amazon\./i.test(url) ? 'amazon' : /hotmart\./i.test(url) ? 'hotmart' : 'mercadolivre';
+
+const storeLinksOf = (r: Row): StoreLink[] =>
+  r.stores && r.stores.length > 0
+    ? r.stores
+    : r.affiliateUrl
+      ? [{ store: r.store ?? storeFromUrl(r.affiliateUrl), url: r.affiliateUrl }]
+      : [];
 
 const fmt = (n?: number) =>
   n ? new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(n) : '—';
+
+// Esconde colunas sem dado em nenhuma linha (a Amazon não permite exibir preço,
+// então em posts 100% Amazon a coluna Preço não deve aparecer vazia).
+const showRating = rows.some((r) => typeof r.rating === 'number');
+const showPrice = rows.some((r) => typeof r.price === 'number');
 ---
 
 <div class="comparison-wrap">
@@ -27,8 +53,8 @@ const fmt = (n?: number) =>
       <tr>
         <th scope="col">Produto</th>
         <th scope="col">Destaque</th>
-        <th scope="col">Nota</th>
-        <th scope="col">Preço</th>
+        {showRating && <th scope="col">Nota</th>}
+        {showPrice && <th scope="col">Preço</th>}
         <th scope="col"><span class="visually-hidden">Comprar</span></th>
       </tr>
     </thead>
@@ -41,14 +67,30 @@ const fmt = (n?: number) =>
               {r.brand && <span class="comparison__brand"> · {r.brand}</span>}
             </th>
             <td>{r.highlight ?? '—'}</td>
-            <td>{r.rating ? r.rating.toFixed(1) : '—'}</td>
-            <td>{fmt(r.price)}</td>
+            {showRating && <td>{r.rating ? `⭐ ${r.rating.toFixed(1)}` : '—'}</td>}
+            {showPrice && <td>{fmt(r.price)}</td>}
             <td>
-              <AffiliateButton href={r.affiliateUrl} source={source} label="Ver preço" />
+              <div class="comparison__actions">
+                {storeLinksOf(r).map((s) => (
+                  <AffiliateButton href={s.url} store={s.store} source={source} />
+                ))}
+              </div>
             </td>
           </tr>
         ))
       }
     </tbody>
   </table>
+  {showPrice && priceDate && (
+    <p class="comparison__pricenote">💲 Preços consultados em {priceDate}, sujeitos a alteração. Confira o valor atual na loja.</p>
+  )}
 </div>
+
+<style>
+  .comparison__actions { display: flex; flex-direction: column; gap: 0.4rem; align-items: stretch; }
+  .comparison__pricenote {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin: 0.6rem 0 0;
+  }
+</style>

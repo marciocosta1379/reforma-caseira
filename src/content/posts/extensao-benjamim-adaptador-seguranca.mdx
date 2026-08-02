@@ -1,0 +1,233 @@
+---
+title: 'Extensão, benjamim e adaptador: como usar sem risco de incêndio'
+description: 'O que 10A e 20A realmente significam, por que o benjamim é perigoso e como escolher extensão sem sobrecarregar a tomada. Com 4 opções seguras.'
+pubDate: 2026-08-13
+category: 'guias'
+tags: ['elétrica', 'extensão', 'tomada', 'segurança']
+featured: false
+draft: true
+author: 'Márcio Costa'
+products:
+  - name: 'Force Line Extensão Slim 3 Tomadas Tripolar 3m Branco'
+    brand: 'Force Line'
+    rating: 4.8
+    image: '/images/produtos/forceline-slim-3-tomadas-3m.webp'
+    affiliateUrl: 'https://www.amazon.com.br/dp/B07JN19LDF?tag=reformacaseira-20'
+    pros:
+      - 'Tripolar de verdade, com o pino terra funcional — é o pino que conduz a fuga de corrente para fora em vez de para você'
+      - 'Nota 4,8 sobre volume enorme de avaliações, num item onde consistência de fabricação importa mais que recurso'
+    cons:
+      - 'Como toda extensão de 10A, não serve para carga alta: ar-condicionado, aquecedor e forno elétrico ficam de fora'
+  - name: 'Force Line Cordão Prolongador Tripolar 10A 3m Preto'
+    brand: 'Force Line'
+    rating: 4.8
+    image: '/images/produtos/forceline-prolongador-10a-3m.webp'
+    affiliateUrl: 'https://www.amazon.com.br/dp/B0752Q1J8P?tag=reformacaseira-20'
+    pros:
+      - 'Tomada única no lugar de régua: elimina a tentação de pendurar mais aparelhos do que o cabo suporta'
+      - 'Formato correto para levar um aparelho até um ponto distante, que é o uso legítimo de extensão'
+    cons:
+      - 'Uma tomada só resolve um problema por vez — para bancada com vários equipamentos não serve'
+  - name: 'Force Line Extensão Slim 3 Tomadas Tripolar 10m Branco'
+    brand: 'Force Line'
+    rating: 4.8
+    image: '/images/produtos/forceline-slim-10m.webp'
+    affiliateUrl: 'https://www.amazon.com.br/dp/B07KJLRRSD?tag=reformacaseira-20'
+    pros:
+      - '10 metros alcançam quintal, garagem e o fundo da casa sem precisar emendar duas extensões — emenda é ponto de falha'
+      - 'Mesma construção tripolar e mesma nota das versões curtas da linha'
+    cons:
+      - 'Cabo longo aquece mais e tem mais queda de tensão; e usar enrolado no carretel, como muita gente faz, agrava bastante isso'
+  - name: 'Force Line Extensão Slim 3 Tomadas Tripolar 1m Preto'
+    brand: 'Force Line'
+    rating: 4.8
+    image: '/images/produtos/forceline-slim-1m-preto.webp'
+    affiliateUrl: 'https://www.amazon.com.br/dp/B07WW8LT2P?tag=reformacaseira-20'
+    pros:
+      - 'Um metro é o comprimento certo para atrás de móvel e criado-mudo, sem sobra de cabo enrolada no chão'
+      - 'A opção mais barata da lista, com a mesma construção tripolar das demais'
+    cons:
+      - 'Alcance curto demais para qualquer uso que não seja bem próximo à tomada'
+faq:
+  - question: 'O que significa 10A e 20A na tomada e na extensão?'
+    answer: 'É a corrente máxima que aquele componente foi projetado para conduzir com segurança. No padrão brasileiro NBR 14136, os pinos de 10A são mais finos e os de 20A mais grossos, justamente para impedir que se ligue um aparelho de alta corrente num circuito dimensionado para menos. Uma extensão de 10A em 127V suporta aproximadamente 1270W de carga somada. Passar disso aquece o cabo progressivamente, degrada o isolamento e é uma das causas mais comuns de incêndio de origem elétrica em residência.'
+  - question: 'Por que o benjamim (adaptador T) é perigoso?'
+    answer: 'Por dois motivos que se somam. Primeiro, ele multiplica pontos numa tomada única sem multiplicar a capacidade do circuito: a tomada continua sendo de 10A, mas agora com três aparelhos somando corrente nela. Segundo, o peso dos plugues faz alavanca sobre o contato, que afrouxa com o tempo — e contato frouxo gera mau contato, mau contato gera calor, e calor derrete o plástico. Se você precisa de mais pontos, o correto é uma régua com cabo, que distribui o peso e frequentemente traz proteção térmica.'
+  - question: 'Posso ligar ar-condicionado ou chuveiro em extensão?'
+    answer: 'Não, em nenhuma hipótese. São cargas altas que exigem circuito dedicado, dimensionado com bitola de fio e disjuntor próprios. Ar-condicionado, chuveiro elétrico, forno elétrico, aquecedor e máquina de lavar com aquecimento estão todos fora do que uma extensão doméstica suporta. Esses aparelhos precisam de tomada própria ligada direto ao quadro, e a instalação é serviço de eletricista.'
+  - question: 'Extensão enrolada esquenta mais?'
+    answer: 'Esquenta, e bastante. Quando o cabo está enrolado, o calor gerado pela passagem de corrente fica preso no meio do rolo, sem conseguir se dissipar no ar. Em carretéis, os fabricantes chegam a especificar duas capacidades: uma para o cabo totalmente desenrolado e outra, bem menor, para o cabo ainda enrolado. A regra prática é simples: desenrole todo o cabo antes de ligar carga, mesmo que sobre comprimento no chão.'
+  - question: 'Extensão e filtro de linha são a mesma coisa?'
+    answer: 'Não são. A extensão apenas leva a energia de um ponto a outro e multiplica tomadas. O filtro de linha com DPS acrescenta um componente que desvia picos de tensão para o terra, protegendo os aparelhos de surto — de raio, de religamento da rede, de oscilação. Uma extensão comum não oferece nenhuma proteção contra isso, mesmo quando vendida com nome de filtro. Para computador, TV, roteador e equipamento de automação, o filtro com DPS de verdade é o que faz diferença.'
+---
+
+import AffiliateButton from '../../components/AffiliateButton.astro';
+import ComparisonTable from '../../components/ComparisonTable.astro';
+import ProsCons from '../../components/ProsCons.astro';
+
+Extensão elétrica é o item mais vendido da categoria de elétrica e provavelmente o mais mal utilizado da casa brasileira. O padrão que se repete é conhecido: uma tomada, um benjamim, uma extensão saindo dele, outra extensão emendada na primeira, e no fim da linha um aquecedor.
+
+Cada etapa dessa cadeia parece inofensiva. Somadas, elas são a origem clássica de incêndio de causa elétrica em residência — não por defeito do produto, mas por soma de corrente acima do que o conjunto foi projetado para conduzir.
+
+Este guia explica os números que estão escritos nos produtos e que quase ninguém lê, e mostra as opções certas para cada situação.
+
+## O número que importa: 10A ou 20A
+
+No padrão brasileiro NBR 14136, tomadas e plugues vêm em duas capacidades, diferenciadas pela espessura dos pinos:
+
+- **10A** — pinos de 4mm. É o padrão da maioria das tomadas de uso geral e de praticamente toda extensão doméstica.
+- **20A** — pinos de 4,8mm. Para cargas maiores, como micro-ondas e máquina de lavar, em circuitos preparados para isso.
+
+A diferença de espessura não é estética: ela existe para **impedir fisicamente** que um aparelho de 20A seja ligado num ponto de 10A.
+
+Para saber o que cabe numa extensão de 10A, a conta é direta:
+
+**Potência máxima = corrente × tensão**
+
+Em 127V: 10A × 127V ≈ **1270W**
+Em 220V: 10A × 220V ≈ **2200W**
+
+Some a potência de tudo que você vai plugar. Se passar disso, o cabo vai aquecer. E cabo aquecendo não avisa — o isolamento vai degradando por dentro ao longo de meses até o dia em que falha.
+
+Alguns exemplos de consumo aproximado que ajudam a calibrar:
+
+| Aparelho | Potência aproximada |
+|---|---|
+| Notebook | 65 a 100W |
+| TV 50" | 100 a 150W |
+| Roteador + modem | 20 a 30W |
+| Ventilador | 100 a 150W |
+| Aquecedor elétrico | **1500 a 2000W** |
+| Ferro de passar | **1000 a 2200W** |
+| Chaleira elétrica | **1500 a 2000W** |
+
+Repare no padrão: **tudo que gera calor consome muito**. Notebook, TV e roteador juntos não chegam perto do limite de uma extensão. Um único aquecedor estoura sozinho.
+
+## Por que o benjamim é o pior componente da casa
+
+O adaptador em T, o benjamim, resolve um problema aparente (falta de tomada) criando dois problemas reais.
+
+**Ele não aumenta a capacidade.** A tomada da parede continua sendo de 10A. O benjamim só permite que três aparelhos somem corrente naquele mesmo ponto, que continua dimensionado para o que sempre foi.
+
+**Ele afrouxa o contato.** Três plugues pendurados fazem alavanca sobre os contatos internos da tomada. Com o tempo, a pressão de contato diminui. Contato frouxo tem resistência elétrica maior, resistência maior gera calor no ponto, e é assim que se derrete um espelho de tomada.
+
+Se você precisa de mais pontos, use **régua com cabo**: o peso fica no chão, não na tomada, e boa parte dos modelos traz proteção térmica.
+
+## Tabela comparativa
+
+<ComparisonTable
+  source="extensao-benjamim-adaptador-seguranca"
+  rows={[
+    { name: 'Force Line Slim 3 tomadas 3m', brand: 'Force Line', rating: 4.8, highlight: 'O tamanho de uso geral', affiliateUrl: 'https://www.amazon.com.br/dp/B07JN19LDF?tag=reformacaseira-20' },
+    { name: 'Force Line Prolongador 10A 3m', brand: 'Force Line', rating: 4.8, highlight: 'Tomada única, sem tentação', affiliateUrl: 'https://www.amazon.com.br/dp/B0752Q1J8P?tag=reformacaseira-20' },
+    { name: 'Force Line Slim 3 tomadas 10m', brand: 'Force Line', rating: 4.8, highlight: 'Alcança quintal e garagem', affiliateUrl: 'https://www.amazon.com.br/dp/B07KJLRRSD?tag=reformacaseira-20' },
+    { name: 'Force Line Slim 3 tomadas 1m', brand: 'Force Line', rating: 4.8, highlight: 'Atrás de móvel, sem sobra', affiliateUrl: 'https://www.amazon.com.br/dp/B07WW8LT2P?tag=reformacaseira-20' },
+  ]}
+/>
+
+## 1. Force Line Slim 3 tomadas 3m — o tamanho de uso geral
+
+![Force Line Extensão Slim 3 Tomadas 3m](/images/produtos/forceline-slim-3-tomadas-3m.webp)
+
+Três metros é o comprimento que resolve a maioria das situações domésticas sem sobra excessiva de cabo. Três tomadas tripolares é o número que atende sem convidar ao excesso.
+
+O ponto que importa aqui é o **terceiro pino, o terra**. Ele não é enfeite: é o caminho por onde uma corrente de fuga vai embora se a carcaça de um aparelho energizar. Sem terra funcional, esse caminho pode ser você. Extensão tripolar ligada em tomada com terra de verdade é uma das medidas de segurança mais baratas que existem.
+
+A nota 4,8 sobre um volume grande de avaliações importa mais do que parece nesta categoria: em extensão, o que se compra é consistência de fabricação — solda boa, contato firme, isolamento correto. Não há recurso para diferenciar; há execução.
+
+**O limite honesto:** é 10A. Notebook, TV, videogame, roteador, carregadores — tudo bem. Aquecedor, ferro, chaleira, ar-condicionado — não.
+
+<ProsCons pros={['Tripolar com terra funcional, a proteção mais barata contra choque', '4,8 sobre volume enorme de avaliações — consistência comprovada de fabricação']} cons={['10A limita a cerca de 1270W em 127V: fora do alcance de qualquer carga térmica']} />
+
+<AffiliateButton href="https://www.amazon.com.br/dp/B07JN19LDF?tag=reformacaseira-20" store="amazon" source="extensao-benjamim-adaptador-seguranca" />
+
+---
+
+## 2. Force Line Prolongador 10A 3m — uma tomada, um problema
+
+![Force Line Cordão Prolongador Tripolar 10A 3m](/images/produtos/forceline-prolongador-10a-3m.webp)
+
+Tomada única em vez de régua, e essa restrição é uma **funcionalidade de segurança disfarçada**. Toda régua acaba com mais aparelhos do que deveria — não por má-fé, mas porque os pontos estão ali, vazios, convidando.
+
+O prolongador de tomada única faz exatamente o que extensão deveria fazer: levar energia até um ponto distante para *um* aparelho. É o formato correto para o ventilador do outro lado da sala, a furadeira no fundo do corredor, a luminária no canto sem tomada.
+
+Para bancada de trabalho com vários equipamentos, ele não serve — aí você precisa de régua ou, melhor ainda, de um ponto de tomada novo instalado.
+
+<ProsCons pros={['Tomada única elimina a tentação de sobrecarregar o cabo', 'O formato correto para levar um aparelho a um ponto distante']} cons={['Não atende bancada nem setup com vários equipamentos']} />
+
+<AffiliateButton href="https://www.amazon.com.br/dp/B0752Q1J8P?tag=reformacaseira-20" store="amazon" source="extensao-benjamim-adaptador-seguranca" />
+
+---
+
+## 3. Force Line Slim 10m — para quintal e garagem
+
+![Force Line Extensão Slim 3 Tomadas 10m](/images/produtos/forceline-slim-10m.webp)
+
+Dez metros alcançam o quintal, a garagem e o fundo da casa **sem emendar duas extensões** — e evitar a emenda é o ponto principal. Todo encontro de plugue com tomada é um ponto de resistência e de possível mau contato; encadear extensões multiplica esses pontos e, em ambiente externo, adiciona exposição à umidade.
+
+Mesma construção tripolar e mesma nota das versões curtas da linha.
+
+Duas advertências que valem para qualquer cabo longo:
+
+**Desenrole antes de usar.** Cabo enrolado retém o calor no meio do rolo em vez de dissipar no ar. É por isso que carretéis profissionais trazem duas capacidades declaradas: uma para cabo desenrolado e outra, bem menor, para enrolado.
+
+**Queda de tensão existe.** Em 10 metros com carga próxima do limite, a tensão que chega na ponta é menor que a da tomada. Para ferramenta com motor, isso significa menos torque e mais aquecimento do motor.
+
+<ProsCons pros={['10m alcançam área externa sem emendar extensões — menos pontos de falha', 'Mesma construção tripolar e nota das versões curtas']} cons={['Aquece mais e sofre queda de tensão; enrolado no carretel, o risco aumenta bastante']} />
+
+<AffiliateButton href="https://www.amazon.com.br/dp/B07KJLRRSD?tag=reformacaseira-20" store="amazon" source="extensao-benjamim-adaptador-seguranca" />
+
+---
+
+## 4. Force Line Slim 1m — atrás do móvel
+
+![Force Line Extensão Slim 3 Tomadas 1m](/images/produtos/forceline-slim-1m-preto.webp)
+
+Um metro parece pouco até você perceber quantas situações da casa são exatamente isso: a tomada está a 80cm de onde você precisa. Atrás da cama, atrás do rack, ao lado do criado-mudo, sob a mesa.
+
+A vantagem prática é não ter **sobra de cabo enrolada no chão** — que além de feia é justamente a configuração que retém calor e cria tropeço.
+
+É também a opção mais barata da lista, com a mesma construção tripolar das demais. Para setup de mesa ou cabeceira, é a escolha mais limpa.
+
+<ProsCons pros={['Comprimento exato para atrás de móvel, sem sobra enrolada no chão', 'A mais barata da lista, com a mesma construção tripolar']} cons={['Alcance curto: só serve muito próximo à tomada']} />
+
+<AffiliateButton href="https://www.amazon.com.br/dp/B07WW8LT2P?tag=reformacaseira-20" store="amazon" source="extensao-benjamim-adaptador-seguranca" />
+
+---
+
+## As cinco regras que evitam o pior
+
+1. **Some as potências antes de plugar.** Extensão de 10A em 127V comporta cerca de 1270W somados. Está na etiqueta de cada aparelho.
+2. **Nunca ligue carga térmica.** Aquecedor, ferro, chaleira, forno elétrico, ar-condicionado e chuveiro exigem circuito próprio.
+3. **Não encadeie extensões.** Cada emenda é um ponto de mau contato e aquecimento.
+4. **Desenrole o cabo por inteiro.** Sempre, mesmo que sobre comprimento.
+5. **Aposente o benjamim.** Se falta tomada, o certo é régua com cabo — ou, de vez, instalar um ponto novo.
+
+> ⚡ **Teste que leva dez segundos:** depois de meia hora com o setup ligado, toque no plugue e no corpo da extensão. Devem estar na temperatura ambiente ou levemente mornos. **Quente é aviso.** Tire carga do circuito antes que o aviso vire ocorrência.
+
+## Extensão não protege contra surto
+
+Vale separar duas coisas que costumam ser confundidas na hora da compra. A extensão **conduz** energia — ela não filtra nem protege nada. Pico de tensão vindo de raio, de religamento da concessionária ou de oscilação da rede passa direto por ela e chega inteiro no aparelho.
+
+Quem protege contra isso é o filtro de linha com **DPS** (dispositivo de proteção contra surtos), que desvia o excesso de tensão para o terra. Para computador, TV, roteador e central de automação, é outro tipo de produto — e a diferença entre os que realmente têm DPS e os que só usam o nome está [nesta comparação de filtros de linha e DPS](https://nerdcaseiro.com.br/posts/melhores-filtros-linha-dps-surto/) no Nerd Caseiro.
+
+## Perguntas frequentes
+
+**O que significa 10A e 20A?**
+É a corrente máxima suportada. 10A em 127V equivale a cerca de 1270W somados; os pinos mais grossos de 20A impedem ligação errada.
+
+**Por que o benjamim é perigoso?**
+Multiplica aparelhos sem aumentar a capacidade do circuito, e o peso dos plugues afrouxa o contato, gerando calor.
+
+**Posso ligar ar-condicionado em extensão?**
+Não. Cargas térmicas exigem circuito dedicado com fio e disjuntor dimensionados.
+
+**Extensão enrolada esquenta mais?**
+Sim. O calor fica preso no rolo. Desenrole sempre antes de ligar.
+
+**Extensão é a mesma coisa que filtro de linha?**
+Não. Extensão conduz; filtro com DPS desvia picos de tensão para o terra e protege o aparelho.
+
+---
+
+*Na dúvida sobre a carga do seu circuito? [Fale com a gente](/contato/) — e para instalação nova, chame um eletricista.*

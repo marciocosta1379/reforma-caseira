@@ -2,12 +2,15 @@
 import AffiliateButton from './AffiliateButton.astro';
 import ProsCons from './ProsCons.astro';
 
+type Store = 'mercadolivre' | 'amazon' | 'hotmart';
+
 interface Props {
   name: string;
   brand?: string;
   rating?: number;
   price?: number;
   affiliateUrl: string;
+  store?: Store;
   image?: string;
   pros?: string[];
   cons?: string[];
@@ -15,7 +18,18 @@ interface Props {
   source?: string;
 }
 
-const { name, brand, rating, price, affiliateUrl, image, pros, cons, rank, source } = Astro.props;
+const { name, brand, rating, price, affiliateUrl, store, image, pros, cons, rank, source } =
+  Astro.props;
+
+// Sem `store` explícito, deduz a loja pelo próprio link — assim os posts antigos,
+// que só têm affiliateUrl no frontmatter, param de exibir "Ver no Mercado Livre".
+function storeFromUrl(url: string): Store {
+  if (/amazon\./i.test(url)) return 'amazon';
+  if (/hotmart\./i.test(url)) return 'hotmart';
+  return 'mercadolivre';
+}
+
+const finalStore = store ?? storeFromUrl(affiliateUrl);
 
 const priceFmt = price
   ? new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(price)
@@ -55,6 +69,6 @@ const stars = rating ? '★'.repeat(Math.round(rating)) + '☆'.repeat(5 - Math.
     </header>
     <slot />
     {(pros || cons) && <ProsCons pros={pros} cons={cons} />}
-    <AffiliateButton href={affiliateUrl} source={source} block />
+    <AffiliateButton href={affiliateUrl} store={finalStore} source={source} block />
   </div>
 </article>

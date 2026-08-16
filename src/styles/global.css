@@ -764,8 +764,10 @@ li { margin-bottom: 0.4em; }
 }
 .prose img { border-radius: var(--radius-md); margin: 1.5em auto; }
 .prose hr { border: none; border-top: 2px solid var(--color-border-light); margin: 2.5em 0; }
-.prose a { color: var(--color-orange); }
-.prose a:hover { color: var(--color-orange-hover); }
+/* `:not(.affiliate-btn)` para não sobrescrever a cor do texto dos botões de afiliado —
+   sem isso, o texto sai laranja e fica ilegível no fundo vermelho do Hotmart. */
+.prose a:not(.affiliate-btn) { color: var(--color-orange); }
+.prose a:not(.affiliate-btn):hover { color: var(--color-orange-hover); }
 .prose strong { color: var(--color-dark); }
 .prose table { width: 100%; border-collapse: collapse; margin: 2.5em 0; font-size: 0.95rem; }
 .prose table th, .prose table td { padding: 0.75rem 1.5rem; border: 1px solid var(--color-border); text-align: left; }

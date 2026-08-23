@@ -25,3 +25,7 @@ Thumbs.db
 
 # scaffold temp (dados de produtos gerados)
 scripts/products-*.json
+
+# saida de dev server (local)
+devlog.txt
+deverr.txt

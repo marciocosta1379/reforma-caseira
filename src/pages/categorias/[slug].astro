@@ -15,12 +15,55 @@ export async function getStaticPaths() {
     guias: 'Guias de Compra',
   };
 
+
+  // Título e meta descrição próprios por categoria: o padrão anterior
+  // (`${label} — Reviews e Guias`) gerava títulos curtos demais para o Bing.
+  const categorySeo: Record<string, { title: string; description: string }> = {
+    furadeiras: {
+      title: 'Furadeiras e marteletes: qual comprar para cada furo',
+      description: 'Furadeira de impacto, martelete SDS e parafusadeira comparadas: qual encara concreto, qual basta para madeira e o que muda entre modelo com fio e a bateria.',
+    },
+    parafusadeiras: {
+      title: 'Parafusadeiras: torque, bateria e qual serve para você',
+      description: 'Parafusadeiras com e sem impacto comparadas: quanto torque você realmente precisa, o que muda entre 12V e 18V e quando a de impacto faz diferença.',
+    },
+    serras: {
+      title: 'Serras: circular, tico-tico, esquadria e serra de mesa',
+      description: 'Cada serra resolve um corte diferente. Comparamos circular, tico-tico, esquadria, mármore e serra de mesa para você comprar a certa de primeira.',
+    },
+    lixadeiras: {
+      title: 'Lixadeiras: orbital, roto-orbital e esmerilhadeira',
+      description: 'Lixadeira orbital, roto-orbital, de cinta e esmerilhadeira comparadas: qual acabamento cada uma entrega e qual grão de lixa usar em cada etapa.',
+    },
+    medicao: {
+      title: 'Medição: trenas a laser, níveis e detectores de parede',
+      description: 'Trena a laser, trena de aço, nível a laser, nível de bolha e detector de parede: o que cada instrumento mede bem e onde ele erra na prática.',
+    },
+    'ferramentas-manuais': {
+      title: 'Ferramentas manuais: chaves, alicates e kits completos',
+      description: 'Chaves combinadas, Allen, Torx, alicates, martelos e kits completos: quais medidas realmente se usam em casa e como montar a caixa sem desperdício.',
+    },
+    jardinagem: {
+      title: 'Jardinagem: aparadores, roçadeiras e sopradores',
+      description: 'Aparador de grama, roçadeira, soprador de folhas e kits de jardinagem comparados: o que dá conta do seu quintal e o que é ferramenta demais.',
+    },
+    organizacao: {
+      title: 'Organização da oficina: caixas, bolsas e suportes',
+      description: 'Caixas, maletas, bolsas, cintos e organizadores de parede comparados: como guardar ferramenta de um jeito que ainda funcione daqui a seis meses.',
+    },
+    guias: {
+      title: 'Guias de reforma, elétrica e hidráulica passo a passo',
+      description: 'Guias completos de pintura, elétrica, hidráulica e marcenaria: o passo a passo, os erros comuns e quando o serviço deixa de ser trabalho de fim de semana.',
+    },
+  };
+
   const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 
   return Object.keys(categoryLabels).map((slug) => ({
     params: { slug },
     props: {
       label: categoryLabels[slug],
+      seo: categorySeo[slug],
       posts: allPosts
         .filter((p) => p.data.category === slug)
         .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()),
@@ -29,7 +72,7 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
-const { label, posts } = Astro.props;
+const { label, seo, posts } = Astro.props;
 
 function formatDate(date: Date) {
   return date.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
@@ -37,8 +80,8 @@ function formatDate(date: Date) {
 ---
 
 <BaseLayout
-  title={`${label} — Reviews e Guias`}
-  description={`Reviews honestos, comparativos e guias de compra sobre ${label.toLowerCase()} para reformas e marcenaria amadora.`}
+  title={seo?.title ?? `${label} — Reviews e Guias`}
+  description={seo?.description ?? `Reviews honestos, comparativos e guias de compra sobre ${label.toLowerCase()} para reformas e marcenaria amadora.`}
 >
   <div class="container section">
     <nav class="cat-breadcrumb" aria-label="Navegação por categoria">

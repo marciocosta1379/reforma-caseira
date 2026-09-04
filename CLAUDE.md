@@ -97,16 +97,52 @@ import ProductCard from '../../components/ProductCard.astro';
 - Títulos entre 40-70 caracteres (não só o máximo — o Bing Webmaster Tools sinaliza título curto demais como erro de SEO)
 - Descrições meta entre 120-160 caracteres (mesma lógica — evitar descrição genérica de uma linha)
 - Posts saem com `draft: true` por padrão — mudar para `false` para publicar
+- **Tutorial / passo a passo (trilha 18h) — protocolo obrigatório.** O autor **não executa
+  o procedimento** antes de publicar. Logo, a autoridade vem da fonte, não de experiência
+  própria:
+  - **Procedimento de fonte primária** — norma técnica (ABNT NBR 5410 para elétrica),
+    manual do fabricante, documentação oficial da ferramenta. Nunca descrever passo por
+    dedução.
+  - **Sem primeira pessoa fingida.** Proibido "fiz aqui em casa", "testei essa massa",
+    "usei essa furadeira". O texto descreve o procedimento e cita a fonte.
+  - **Segurança em primeiro lugar.** Manter a trilha no **reversível e de baixo risco**
+    (pintura, furação, fixação, montagem, organização). Em elétrica, hidráulica embutida,
+    gás, estrutura ou trabalho em altura: explicar o conceito, mas **dizer explicitamente
+    quando chamar profissional habilitado** — e nunca publicar passo a passo que substitua
+    eletricista ou encanador.
+  - **Varredura de comunidade** atrás do erro comum e do que dá errado na prática.
 
 ## Estratégia de Conteúdo
 
-7 posts por semana (segunda a domingo — cadência diária desde 21/07/2026, antes era só segunda a
-sexta), gerados em lote via skill `/lote-semanal`:
+**10 posts por semana** desde 04/09/2026 — 7 na trilha da manhã (seg-dom) + 3 na trilha da
+tarde (ver *Cadência* logo abaixo). Antes eram 7/semana, e antes disso só seg-sex.
+Gerados em lote via skill `/lote-semanal`. Tipos da trilha da manhã:
 
 - **Listicles "Top N"** (3 posts/sem — seg, qua, sex): tráfego alto, múltiplos pontos de saída
 - **Comparativo "X vs Y"** (1 post/sem — ter): alta conversão (EPC até 15x maior)
 - **Review individual** (1 post/sem — qui): autoridade + nicho
 - **2 posts de fim de semana** (sáb, dom): tipo/tema flexível, confirmar caso a caso
+
+
+### Cadência: 10 posts/semana em duas trilhas (desde 04/09/2026)
+
+| Trilha | Horário | Tema | `pubDate` |
+|---|---|---|---|
+| **Manhã** — 7/semana (todo dia) | 07:00 BRT | review / comparativo / listicle | só a data: `pubDate: 2026-09-16` |
+| **Tarde** — 3/semana (**ter, qui, sáb**) | 18:00 BRT | **tutorial / passo a passo** (ver protocolo nas regras editoriais) | **com hora**: `pubDate: 2026-09-16T18:00:00-03:00` |
+
+⚠️ **A hora no `pubDate` do post da tarde é obrigatória.** Sem ela o post vale como
+meia-noite e a rodada das 07:00 publica os dois juntos, no mesmo horário. Verificado:
+`publish-scheduled.mjs` compara timestamp completo (`pubDate > now`), o YAML converte
+`2026-09-16T18:00:00-03:00` em `Date` e o `z.date()` do schema aceita — não precisa
+mudar script nem schema.
+
+**Nunca pôr dois posts do mesmo pilar no mesmo dia** — é o que faz os dois competirem
+pela mesma busca e dividirem a força entre si. A separação de tema entre as trilhas
+existe exatamente para isso.
+
+O disparo das 18h vem do **n8n** (regra cron `0 5 18 * * *`, fuso America/Sao_Paulo,
+18:05 para dar folga contra atraso de relógio). Ver [[cadencia-10-por-semana-rede]].
 
 ### Diretrizes de tom
 

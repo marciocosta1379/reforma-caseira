@@ -1,244 +1,203 @@
 ---
 name: lote-semanal
-description: Gera 7 posts (segunda a domingo) para o Blog Reforma Caseira em sequência. Use quando o usuário digitar /lote-semanal seguido da semana e temas, ou pedir explicitamente para "gerar a semana" ou "criar os posts da semana". Cada post é uma listicle, comparativo ou review baseado no mix editorial.
+description: Gera os 10 posts da semana para o Blog Reforma Caseira (7 na trilha da manhã + 3 na trilha da tarde) com APROVAÇÃO DO USUÁRIO EM ETAPAS. Use quando o usuário digitar /lote-semanal, pedir "gerar a semana" ou "criar os posts da semana". Nicho: ferramentas, reforma e DIY.
 ---
 
-# Skill: Lote Semanal de Posts
+# Skill: Lote Semanal de Posts — Reforma Caseira
 
-## Quando usar
+Reviews e comparativos de ferramentas e materiais de reforma, com **supervisão humana em cada
+etapa**. O usuário provoca; o agente sugere; o usuário aprova; só no fim libera o agendamento.
 
-Quando o usuário pedir para gerar os 7 posts da próxima semana (segunda a domingo — cadência
-diária desde 21/07/2026, antes era só seg-sex) em lote. Exemplos:
+## ⛔ Regra-mãe: NUNCA pule um gate
 
-- `/lote-semanal 2026-06-08 parafusadeiras-baratas furadeiras-impacto serras-tico-tico lixadeiras parafusadeiras-pro ... ...`
-- "vamos gerar a semana de 8/jun com esses temas..."
-- "cria os posts pra próxima semana"
+O fluxo tem **3 portões de aprovação**. Em cada um, **pare e espere o "ok" explícito**.
+**Nunca** mude `draft:false`, **nunca** commite e **nunca** agende sem a liberação final.
 
-Se o usuário não passar temas, sugira 7 baseados em buscas atuais no painel ML.
+---
 
-## Estratégia editorial
+## Fluxo
 
-Para cada semana de 7 posts:
-- **3 listicles** (Top N) — segunda, quarta, sexta — tráfego alto, múltiplos pontos de saída
-- **1 comparativo** (X vs Y) — terça — alta conversão
-- **1 review individual** — quinta — autoridade + nicho
-- **2 reviews individuais** — sábado e domingo — padrão default de fim de semana
+### 0. Gatilho
 
-Adapte se o usuário preferir mais comparativos, outro tipo, ou tema/loja específico para uma
-data pontual (ex.: pediu Amazon como loja numa semana específica).
+`/lote-semanal [data da segunda]` ou "vamos gerar a semana". Calcule as datas.
 
-## Fluxo passo-a-passo
+⚠️ **Cadência desde 05/09/2026: 10 posts por semana.**
 
-### Passo 0 — Confirmar com o usuário
+| Trilha | Dias | Hora | `pubDate` |
+|---|---|---|---|
+| Manhã | seg a dom (7) | 07h | `2026-09-14` |
+| Tarde | ter, qui, sáb (3) | 18h | `2026-09-15T18:00:00-03:00` |
 
-Antes de começar, confirme:
-1. Quais são as 7 datas (calcule seg-dom a partir da data fornecida)
-2. Quais são os 7 temas
-3. Qual tipo (listicle/comparativo/review) para cada
+A trilha da tarde do Reforma Caseira é **sempre passo a passo**. O `publish-scheduled.mjs` compara
+o timestamp completo, então basta a hora no `pubDate`. Quem dispara de verdade é o **n8n**
+(dois triggers: 07h e 18h, timezone America/Sao_Paulo).
 
-Apresente em formato de tabela. Só prossiga após confirmação.
+### Gate 1 — TEMAS (aprovação)
 
-### Passo 1 — Coletar link de afiliado ML (MÉTODO CANÔNICO — testado)
+Sugira **10 temas** com data, trilha e tipo. Tabela. **Pare e espere aprovação.**
 
-⚠️ **NUNCA gere link a partir de uma URL de BUSCA** (`lista.mercadolivre.com.br/...`) nem do Link
-Builder com URL de busca — isso aponta pro resultado de busca, não pro produto. **Sempre use a
-PÁGINA DO PRODUTO específico.**
+| Trilha | Tipo | Peso |
+|---|---|---|
+| Manhã (7) | Listicle "Top N", Comparativo "X vs Y", Review individual | tráfego + conversão |
+| Tarde (3) | **Passo a passo** | autoridade |
 
-Via Claude in Chrome, use **`javascript_tool`** (NÃO screenshots/`read_page`: páginas do ML penduram
-no `document_idle` e estouram). Para cada produto (listicle 5-7, comparativo 2-3, review 1):
+**De onde saem os temas** (⚠️ produto em voga, não data em voga):
 
-1. **Achar o produto:** navegue numa busca (`lista.mercadolivre.com.br/<query>`) e pegue o **1º
-   resultado ORGÂNICO** (pule patrocinados: href com `click1`/`mclics`). URL limpa do produto:
-   `/p/MLB\d+`, `produto.mercadolivre.com.br/MLB-\d+` ou `/up/MLBU\d+` (corte `?`/`#`).
-2. **Navegue para a página do produto** e num único `javascript_tool` colete:
-   - **Preço:** `document.querySelector('[itemprop="price"]')?.getAttribute('content')` (confiável;
-     NÃO leia carrossel/parcela "12x" — dá valor errado).
-   - **Imagem:** `[...document.querySelectorAll('figure img,[class*="gallery"] img')].find(i=>/mlstatic/.test(i.src))`
-     (para baixar em alta use a variante `D_Q_NP_2X_..._-E.webp`).
-   - **Link de afiliado:** clique `document.querySelector('.generate_link_button')` e leia o
-     `meli.la/CODE` novo que aparece no DOM:
-     ```js
-     const before = new Set([...document.body.innerText.matchAll(/meli\.la\/([A-Za-z0-9]+)/g)].map(m=>m[1]));
-     document.querySelector('.generate_link_button').click();
-     // poll a cada 500ms por um meli.la/CODE que não estava em `before`
-     ```
-   Esse `meli.la/CODE` é o `affiliateUrl`.
+- **Mais vendidos** — Amazon (`/gp/bestsellers/...` via `curl`, funciona), Mercado Livre, Shopee.
+- **Trends** — Google Shopping/Trends, YouTube (Mestre dos Reparos, Marceneiro Curioso), X.
+- ⚠️ **Antes de propor, varra `src/content/posts/` para não repetir tema já publicado.**
 
-**Pegadinhas (observadas na prática):**
-- O **filtro de privacidade** bloqueia retornar strings com cookie/query-string — retorne **só o CODE**, nunca URLs com `?...`.
-- O **clipboard fica bloqueado** — leia o `meli.la` do DOM, não de `navigator.clipboard`.
-- O código é **determinístico por produto+conta** (regerar o mesmo produto dá o mesmo código).
-- Páginas que não carregam (título "(1)"/vazio) → pegue outro produto.
-- **UTM no `meli.la` é OK** (o `AffiliateButton` anexa `utm_source=reformacaseira...`).
+### Gate 2 — TÍTULOS (aprovação)
 
-### Passo 2 — Pesquisa externa para análise fidedigna
+Títulos finais dos 10 posts. **Pare e espere aprovação.**
 
-Para cada produto, fazer **WebSearch** com queries como:
-- `"[nome do produto]" review opinião`
-- `"[nome do produto]" vs [concorrente]`
-- `"[modelo específico]" specs ficha técnica`
+⚠️ **Comprimentos (o Bing Webmaster acusa curto demais como erro de SEO):**
 
-Fontes confiáveis para ferramentas no Brasil:
-- **Tudo Construção** (tudoconstrucao.com.br)
-- **Maquifer** (maquifer.com.br)
-- **Tools Brasil** / **TB Ferramentas**
-- **Reclame Aqui** — para detectar problemas reais
-- **YouTube** — canais como "Marcenaria Madeireira", "Marceneiro Curioso", "Mestre dos Reparos"
-- **Sites oficiais** das marcas (Bosch, DeWalt, Black+Decker, Tramontina, WAP)
+- **Título: 40 a 70 caracteres.**
+- **Descrição meta: 120 a 160 caracteres.** O schema zod corta acima de 160 — valide antes.
+- **Direto ao produto/tarefa**, sem framing abstrato: *"Rejunte epóxi ou cimentício: qual usar em
+  cada área"*, não *"a arte de finalizar um ambiente"*.
 
-Coletar:
-- **Specs técnicas reais** (potência em W, voltagem, RPM, peso, autonomia)
-- **Prós** mencionados por múltiplas fontes
-- **Contras** mencionados por múltiplas fontes
-- **Comparação com modelos similares**
+### Passo 3 — Pesquisa + esqueleto (sem aprovação, é trabalho)
 
-**Regra de ouro**: nunca invente specs ou opiniões. Se não encontrar info confiável, deixe genérico ou pesquise mais.
+#### 3.1 — Links de afiliado
 
-### Passo 3 — Baixar imagens dos produtos
+**Amazon (hoje é a loja principal do lote):** link do **SiteStripe** logado na amazon.com.br, ou
+monte `https://www.amazon.com.br/dp/<ASIN>?tag=reformacaseira-20`. **Preço OCULTO** (regra Amazon).
 
-Montar JSON com os produtos coletados e rodar:
+**Mercado Livre:** o ML bloqueia acesso automatizado por WebFetch, `curl` e pela própria API
+oficial (redirect `gz/account-verification`). O que funciona é **Chrome de verdade via CDP** —
+abra o Chrome com `--remote-debugging-port=9222 --user-data-dir=<pasta temp>` e use o script CDP
+do Nerd Caseiro (`E:/Site_afiliado_3/scripts/ml-cdp.mjs`) para ler nome, preço, nota e imagem.
 
-```bash
-node scripts/search-products.mjs --file scripts/products-[slug].json
-```
+- **Todo preço extraído é provisório — confirme com o usuário antes de publicar.**
+- ⚠️ O link curto `meli.la/CODE` resolve para a **página do perfil "Rede Caseira"**, não para o
+  produto. É o comportamento do programa e o usuário optou por usar assim mesmo. Para **baixar a
+  imagem**, use a URL longa do produto, não o `meli.la`.
 
-Estrutura do JSON:
-```json
-[
-  {
-    "id": "MLB12345678",
-    "name": "Nome do Produto",
-    "brand": "Bosch",
-    "price": 299.90,
-    "rating": 4.7,
-    "soldQuantity": 5000,
-    "image": "https://http2.mlstatic.com/D_NQ_NP_...jpg",
-    "affiliateUrl": "https://meli.la/XXXXXXX"
-  }
-]
-```
+**Hotmart:** reaproveite os links de curso já cadastrados (ver memória `hotmart-cursos-afiliados-rede`).
 
-O script baixa as imagens em WebP para `public/images/produtos/[id].webp` e gera arquivo final em `scripts/products-[timestamp].json`.
+⚠️ **NUNCA invente link.** Se não conseguir o link real, escreva `[TODO: link real]` e avise o usuário.
 
-### Passo 4 — Gerar esqueleto MDX
+#### 3.2 — Pesquisa externa (≥2 fontes)
 
-Para cada post:
+Specs reais (potência em W, voltagem, RPM, peso, autonomia), prós e contras citados por múltiplas
+fontes. Fontes: sites oficiais das marcas (Bosch, DeWalt, Black+Decker, Tramontina, WAP), Tudo
+Construção, Maquifer, Reclame Aqui, YouTube BR. **Regra de ouro: nunca invente specs.**
+
+⚠️ **Protocolo de passo a passo** (ver `CLAUDE.md`): o autor **não executa a obra para o post**.
+Procedimento vem de **fonte primária** — manual do fabricante, norma, ficha técnica do material —
+com a fonte citada. Sem primeira pessoa falsa ("fiz aqui em casa"). **Fique no reversível e de
+baixo risco**: elétrica, hidráulica de parede, gás e trabalho em altura → orientar a chamar
+profissional.
+
+#### 3.3 — Baixar imagens (WebP local)
+
+JSON com os produtos → `node scripts/search-products.mjs --file scripts/products-<slug>.json`
+(salva em `public/images/produtos/<id>.webp`).
+
+- ⚠️ **A URL da imagem só pode vir do MESMO item da MESMA busca** — nunca de contexto anterior.
+- O script **não sobrescreve arquivo existente**: se o `id` repetir, apague o `.webp` antes.
+- Confira tamanhos: **< 2KB = imagem quebrada → remova**.
+- **Imagem de referência não-produto:** use **Wikimedia Commons** (a API exige header
+  `User-Agent`), **cheque a licença** e **credite no post**. Diagrama próprio: SVG inline com
+  `@media (prefers-color-scheme: dark)`.
+
+#### 3.4 — Scaffold + frontmatter
 
 ```bash
-node scripts/scaffold-post.mjs \
-  --data scripts/products-[timestamp].json \
-  --slug "[slug-do-post]" \
-  --category [categoria-válida] \
-  --title "[Título de até 70 caracteres]"
+node scripts/scaffold-post.mjs --data scripts/products-<ts>.json --slug "<slug>" --category <cat> --title "<título>"
 ```
 
-Categorias válidas: `furadeiras`, `parafusadeiras`, `serras`, `lixadeiras`, `medicao`, `ferramentas-manuais`, `jardinagem`, `organizacao`, `guias`
+Categorias: `furadeiras | parafusadeiras | serras | lixadeiras | medicao | ferramentas-manuais | jardinagem | organizacao | guias`.
 
-### Passo 5 — Editar frontmatter com data agendada
+⚠️ Neste repo o produto usa **`affiliateUrl`** (string), não o array `stores` dos outros dois sites.
 
-Após o scaffold, **EDITAR** o arquivo MDX criado para:
-- Definir `pubDate: YYYY-MM-DD` com a data agendada do post
-- Manter `draft: true` (será publicado automaticamente pelo workflow)
-- Definir `author: 'Márcio Costa'` (autor nomeado para E-E-A-T)
-- Adicionar array `faq` no frontmatter espelhando a seção "Perguntas frequentes" do corpo (gera FAQPage schema automático). Texto PLANO, sem markdown. Exemplo:
-  ```yaml
-  faq:
-    - question: 'Pergunta exata da seção FAQ?'
-      answer: 'Resposta em texto plano, igual ao conteúdo visível.'
-  ```
-  **Importante:** o texto do `faq` DEVE espelhar o conteúdo visível (exigência do Google) — não invente Q&A que não está no corpo.
+Frontmatter: `pubDate` (com hora nos posts de 18h), `author: 'Márcio Costa'`, `faq` espelhando a
+seção FAQ em **texto plano** (exigência do Google: não invente Q&A que não está no corpo),
+`featured: true` nos 2-3 de maior apelo (a home mostra no máximo 3).
 
-### Passo 5b — Escolher os 3 posts em destaque da semana
+Critérios de destaque: listicles > comparativos de marca conhecida > reviews de nicho; priorize
+faixa de preço acessível e categorias de maior procura.
 
-A home mostra no máximo **3 posts** na seção "⭐ Em destaque" (campo `featured: true` no frontmatter; padrão é `false`).
+#### 3.5 — ⚠️ VERIFICAR ESTOQUE (obrigatório, antes do Gate 3)
 
-**A cada lote semanal, escolher os 3 posts da semana com MAIOR apelo** e marcar `featured: true` neles. Deixar os outros 2 como `featured: false`.
+Produto fora de estoque queima o clique. **Cheque todos** antes de apresentar:
 
-Critérios de apelo (em ordem de peso):
-1. **Listicles "Top N"** — atraem mais cliques (títulos com número + benefício)
-2. **Faixa de preço acessível / "custo-benefício"** — maior público
-3. **Categorias de maior procura** (furadeiras, parafusadeiras, serras)
-4. **Comparativos de marcas conhecidas** (Bosch, DeWalt, Makita) — alta intenção
-
-Evitar deixar em destaque os reviews de nicho ou produtos muito caros (apelo menor). Na dúvida, priorizar os listicles sobre os reviews individuais.
-
-### Passo 6 — Preencher os [TODO]s com conteúdo de qualidade
-
-Estrutura por tipo de post:
-
-**Listicle (Top N):**
-- Introdução (200-300 palavras): problema, metodologia, para quem é
-- Seção "Como avaliamos": critérios objetivos
-- Tabela comparativa (componente `<ComparisonTable>` com `price`)
-- Para cada produto (150-300 palavras):
-  - **Imagem inline no corpo:** logo após o `## N. Produto`, insira `![Nome](/images/produtos/<id>.webp)`. Não basta a foto no card do rodapé — o leitor quer ver o produto na seção que está lendo.
-  - Preço, vendidos
-  - Análise baseada nos reviews reais pesquisados
-  - 2-3 prós reais (de fontes externas)
-  - 2-3 contras reais (de fontes externas)
-  - Veredicto + para quem indica
-  - Botão `<AffiliateButton href="meli.la/XXX" source="slug" />`
-- Seção "Como escolher" (3-4 perguntas decisórias)
-- FAQ (3-5 perguntas frequentes do nicho)
-- **Total: 2000-3000 palavras**
-
-**Comparativo (X vs Y):**
-- Introdução (200-300 palavras): contexto da comparação
-- Tabela comparativa lado a lado
-- Análise de cada produto (300-400 palavras)
-- Seção "Em quais cenários cada um ganha"
-- Veredicto final por perfil de usuário
-- **Total: 1500-2500 palavras**
-
-**Review individual:**
-- Introdução com contexto e expectativas
-- Specs técnicas detalhadas
-- Análise de uso real (baseada em fontes externas)
-- Prós e contras detalhados
-- Comparação com 2-3 alternativas
-- Veredicto + para quem é/não é
-- **Total: 1500-2500 palavras**
-
-### Passo 7 — Apresentar lote completo ao usuário
-
-Quando os 5 posts estiverem prontos, gere um relatório:
-
-```
-LOTE SEMANAL — Semana de DD/MM a DD/MM
-
-Segunda DD/MM — [Listicle] [Título]
-  ✓ src/content/posts/[slug].mdx
-  ✓ 5 produtos, X palavras, links de afiliado OK
-
-Terça DD/MM — [Comparativo] [Título]
-  ✓ src/content/posts/[slug].mdx
-  ✓ ...
-
-[etc para todos os 5]
-
-Próximos passos:
-1. Revisar cada post em src/content/posts/
-2. Ajustar tom/correções
-3. Quando aprovado, eu mudo draft: false e commito
-4. Os posts serão publicados automaticamente nas datas agendadas
+```bash
+curl -s -A "Mozilla/5.0" "https://www.amazon.com.br/dp/SEU_ASIN" | grep -o 'id="availability".\{0,120\}'
 ```
 
-**NÃO commitar nem mudar draft:false sem aprovação do usuário.**
+Sinal de compra possível: texto de disponibilidade positivo **e** presença de
+`id="add-to-cart-button"`. Caso ambíguo → confirme no Browser pane. Sem estoque → **troque o
+produto** (e apague a imagem órfã).
+
+### Gate 3 — TEXTO (aprovação)
+
+Preencha os `[TODO]`s, gere os cartões OG (`npm run og`), rode `npm run build` para validar o
+schema, e **apresente ao usuário**. Mantenha `draft: true`. **Pare e espere aprovação.**
+
+⚠️ **Entregue o link do localhost de CADA artigo** (`http://localhost:4321/posts/<slug>/`) — o
+usuário revisa no navegador, artigo por artigo, não no terminal. Suba o dev server antes.
+
+#### Imagem no corpo — regra atual
+
+**Coloque a imagem onde o produto é citado no texto**, junto do argumento que o justifica.
+
+- ❌ **Não** use bloco rígido `## N. Produto` + imagem em todo produto: fica monótono e previsível.
+- ✅ Nem todo produto precisa de seção numerada — só quando o texto comporta.
+- ✅ Mas **todo produto citado no corpo leva a imagem ali**, não só no card do rodapé.
+
+#### Coerência produto ↔ texto (as duas metades da mesma regra)
+
+- **Citou como necessário, tem que vender.** Se o texto diz que algo é preciso ter (bico
+  aplicador, fita crepe, chave de grifo, EPI), esse item **entra na lista de produtos com botão**.
+- **O que a tese rejeita, sai da lista.** Se o post argumenta contra um item, ele **não pode**
+  aparecer no frontmatter, na tabela comparativa nem no corpo — varra os **três** lugares.
+
+#### Estrutura por tipo
+
+- **Listicle (Top N):** intro (200-300 pal.) → "Como avaliamos" → `<ComparisonTable>` → produtos
+  (imagem + 150-300 pal.: análise de fontes reais, 2-3 prós, 2-3 contras, veredicto,
+  `<AffiliateButton>`) → "Como escolher" → FAQ. **2000-3000 pal.**
+- **Comparativo (X vs Y):** intro → tabela lado a lado → análise de cada (300-400 pal.) → "em quais
+  cenários cada um ganha" → veredicto por perfil. **1500-2500 pal.**
+- **Review individual:** intro → specs → uso real (fontes) → prós/contras → 2-3 alternativas →
+  veredicto. **1500-2500 pal.**
+- **Passo a passo:** o problema → materiais e ferramentas (com `<AffiliateButton>`) → passo a passo
+  numerado, com a fonte do procedimento → erros comuns → quando chamar profissional → FAQ.
+
+⚠️ **Aprofunde o tema antes do produto.** Explique o problema e **por que** aquele produto resolve.
+Post que vai direto para a vitrine parece caça-níquel.
+
+### Gate final — LIBERAÇÃO (usuário)
+
+Só **após o "ok" final**: confirme as `pubDate` futuras (mantendo `draft: true`), apague imagens
+órfãs de produtos descartados nas correções, `git add -A`, commite e **dê push**. O push é o que
+efetivamente agenda — o `publish-scheduled` (n8n) vira `draft:false` na data e hora.
+
+```bash
+git -C E:/Site pull --rebase --autostash
+```
+
+O repo local costuma estar atrás dos commits automáticos de publicação — rebase antes de commitar.
 
 ## Diretrizes de tom
 
-- **Honesto**: sempre apontar pontos negativos reais quando existirem
-- **Técnico mas acessível**: explica termos sem ser jargão pesado
-- **Direto**: sem enrolação no começo, vai ao ponto rápido
-- **Brasileiro**: usar "R$" e formatação brasileira de preços
-- **Sem hipérbole**: evitar "incrível", "melhor de todos", "imperdível"
-- **Sempre disclaimer**: posts já incluem `<AffiliateDisclosure />` automaticamente pelo template
+- **Honesto**: sempre apontar pontos negativos reais quando existirem.
+- **Técnico mas acessível**: explica termos sem jargão pesado.
+- **Direto**: sem enrolação no começo.
+- **Brasileiro**: "R$" e formatação brasileira.
+- **Sem hipérbole**: evitar "incrível", "melhor de todos", "imperdível".
+- **Não sugerir nem vincular redes sociais** — o usuário não quer perfis sociais nos sites.
+- **Endosso pessoal ("indicação do Reforma Caseira", "o que usamos aqui") só entra quando o
+  usuário autorizar explicitamente** — é a experiência dele, não do agente.
 
-## Erros comuns a evitar
+## Erros a evitar
 
-- Inventar specs técnicas — sempre pesquise antes
-- Copiar texto de reviews existentes — reescreva com suas próprias palavras
-- Não baixar a imagem — sempre rodar `search-products.mjs` antes
-- Esquecer de definir `pubDate` correto — cada post precisa da data agendada
-- Mudar `draft: false` sem aprovação do usuário
-- Usar UTM diferente de `reformacaseira` (o componente AffiliateButton já cuida disso)
+- Pular um gate / commitar ou agendar sem aprovação.
+- Inventar specs ou links; alegar execução que não houve.
+- Não checar estoque; deixar produto sem imagem no corpo.
+- Recomendar item que o próprio texto desaconselha.
+- Título/descrição curtos demais; esquecer `pubDate`, `faq` ou `npm run og`.
+- Usar UTM diferente de `reformacaseira` (o `AffiliateButton` já cuida).

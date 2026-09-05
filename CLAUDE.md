@@ -111,6 +111,27 @@ import ProductCard from '../../components/ProductCard.astro';
     quando chamar profissional habilitado** — e nunca publicar passo a passo que substitua
     eletricista ou encanador.
   - **Varredura de comunidade** atrás do erro comum e do que dá errado na prática.
+- **Imagem no corpo — onde o produto é citado.** A foto entra junto do argumento que justifica o
+  produto, não num bloco fixo. **Não** use o padrão rígido `## N. Produto` + imagem em todo produto:
+  fica monótono e previsível. Nem todo produto precisa de seção numerada — só quando o texto
+  comporta. Mas **todo produto citado no corpo leva a imagem ali**, não só no card do rodapé.
+- **Produto ↔ texto: as duas metades da mesma regra.**
+  - **Citou como necessário, tem que vender.** Se o texto afirma que algo é preciso ter, o item
+    entra na lista de produtos com botão de compra.
+  - **O que a tese rejeita, sai da lista.** Se o post argumenta contra um item, ele não pode
+    aparecer no frontmatter, na tabela comparativa nem no corpo — varra os **três** lugares.
+  - **Dimensionamento tem de fechar com o resto do post** (potência, litragem, medida citada).
+- **Verificação de estoque é obrigatória antes de apresentar o lote.** Produto esgotado queima o
+  clique. Cheque cada um: `curl -s -A "Mozilla/5.0" "https://www.amazon.com.br/dp/SEU_ASIN" | grep -o 'id="availability".\{0,120\}'`
+  — compra possível = disponibilidade positiva **e** `id="add-to-cart-button"` presente. Caso
+  ambíguo, confirme no Browser pane. Sem estoque → trocar o produto e apagar a imagem órfã.
+- **Imagem de referência não-produto** (espécie, planta, diagrama, esquema): use o **Wikimedia
+  Commons** (a API exige header `User-Agent`), **confira a licença**, **confirme que é o objeto
+  certo** e **credite no post**. Diagrama próprio: SVG inline com `@media (prefers-color-scheme: dark)`.
+- **Endosso pessoal só com autorização explícita do usuário.** "Indicação do Reforma Caseira", "o que usamos
+  aqui" e afins descrevem a experiência dele, não a do agente — nunca escreva por conta própria.
+- **Revisão:** ao terminar cada post, entregue o link `http://localhost:4321/posts/<slug>/`. O
+  usuário revisa no navegador, artigo por artigo.
 
 ## Estratégia de Conteúdo
 

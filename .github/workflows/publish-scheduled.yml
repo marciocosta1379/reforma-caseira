@@ -8,6 +8,11 @@ on:
 permissions:
   contents: write
 
+# n8n + redisparo + cron podem coincidir: uma execução por vez, a segunda espera
+concurrency:
+  group: publish-scheduled
+  cancel-in-progress: false
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -37,9 +42,12 @@ jobs:
           ML_AFFILIATE_ID=${{ secrets.ML_AFFILIATE_ID }}
           EOF
 
-      - name: Publicar posts agendados (draft:true → false se pubDate <= hoje)
-        run: node scripts/publish-scheduled.mjs
+      # 1) Só troca draft:true → false (sem deploy)
+      - name: Marcar posts vencidos como publicados
+        run: node scripts/publish-scheduled.mjs --no-deploy
 
+      # 2) Commit ANTES do deploy: se o FTP cair, o estado dos posts já está salvo e a
+      #    próxima execução completa o deploy (o passo 3 confere o site ao vivo)
       - name: Commit dos posts publicados
         run: |
           git config user.name "github-actions[bot]"
@@ -49,5 +57,11 @@ jobs:
             echo "Nada para commitar"
           else
             git commit -m "chore: publicar posts agendados [$(date +'%Y-%m-%d')]"
+            git pull --rebase
             git push
           fi
+
+      # 3) Confere no site ao vivo os posts dos últimos 14 dias; o que estiver fora do ar
+      #    (agora ou de execução anterior que falhou) é publicado e verificado com HTTP 200
+      - name: Deploy e verificação no site ao vivo
+        run: node scripts/publish-scheduled.mjs --deploy-only

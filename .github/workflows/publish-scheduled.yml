@@ -20,6 +20,8 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    # Teto de segurança: execução travada (FTP fora) não pode queimar minutos por horas
+    timeout-minutes: 20
 
     steps:
       - name: Checkout do código

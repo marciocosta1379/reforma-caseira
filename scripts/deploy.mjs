@@ -40,8 +40,8 @@ const REMOTE_DIR = HOSTINGER_FTP_DIR || '/public_html';
 const stayInLoginDir = REMOTE_DIR === '.' || REMOTE_DIR === '';
 
 const MANIFEST = '.deploy-manifest.json';
-const MAX_RETRIES = 8; // por arquivo
-const MAX_RECONNECTS = 40; // no deploy inteiro — acima disso o servidor está fora, desiste
+const MAX_RETRIES = Number(process.env.DEPLOY_MAX_RETRIES) || 8; // por arquivo (DEPLOY_MAX_RETRIES=1 no PC: não insistir e não bloquear o IP)
+const MAX_RECONNECTS = Number(process.env.DEPLOY_MAX_RECONNECTS) || 40; // no deploy inteiro — acima disso o servidor está fora, desiste
 
 async function listFiles(dir) {
   const out = [];

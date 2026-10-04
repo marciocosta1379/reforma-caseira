@@ -10,6 +10,7 @@ interface Props {
   rating?: number;
   price?: number;
   affiliateUrl: string;
+  stores?: { store: Store; url: string }[];
   store?: Store;
   image?: string;
   pros?: string[];
@@ -18,7 +19,7 @@ interface Props {
   source?: string;
 }
 
-const { name, brand, rating, price, affiliateUrl, store, image, pros, cons, rank, source } =
+const { name, brand, rating, price, affiliateUrl, stores, store, image, pros, cons, rank, source } =
   Astro.props;
 
 // Sem `store` explícito, deduz a loja pelo próprio link — assim os posts antigos,
@@ -69,6 +70,12 @@ const stars = rating ? '★'.repeat(Math.round(rating)) + '☆'.repeat(5 - Math.
     </header>
     <slot />
     {(pros || cons) && <ProsCons pros={pros} cons={cons} />}
-    <AffiliateButton href={affiliateUrl} store={finalStore} source={source} block />
+    {
+      stores && stores.length > 0 ? (
+        stores.map((s) => <AffiliateButton href={s.url} store={s.store} source={source} block />)
+      ) : (
+        <AffiliateButton href={affiliateUrl} store={finalStore} source={source} block />
+      )
+    }
   </div>
 </article>

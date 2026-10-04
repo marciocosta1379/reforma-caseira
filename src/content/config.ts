@@ -6,6 +6,11 @@ const productSchema = z.object({
   rating: z.number().min(0).max(5).optional(),
   price: z.number().optional(),
   affiliateUrl: z.string().url(),
+  // Opcional: várias lojas (ex.: Amazon + Mercado Livre). Quando presente, o card mostra
+  // um botão por loja; sem ele, vale o affiliateUrl de sempre (posts antigos).
+  stores: z
+    .array(z.object({ store: z.enum(['amazon', 'mercadolivre', 'hotmart']), url: z.string().url() }))
+    .optional(),
   image: z.string().optional(),
   pros: z.array(z.string()).optional(),
   cons: z.array(z.string()).optional(),

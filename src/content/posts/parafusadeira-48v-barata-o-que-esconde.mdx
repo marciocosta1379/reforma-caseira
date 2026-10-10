@@ -1,0 +1,305 @@
+---
+title: 'Parafusadeira "48V" barata: o que esse número esconde'
+description: 'Por que a tensão anunciada nas parafusadeiras genéricas engana, o que realmente define a força (torque, bateria, motor) e como comparar com marcas.'
+pubDate: 2026-10-13
+category: 'parafusadeiras'
+tags: ['parafusadeira', 'furadeira', '48v', 'bateria', 'torque', 'guia']
+featured: false
+draft: true
+author: 'Márcio Costa'
+products:
+  - name: 'WAP BPF-12K3, parafusadeira e furadeira a bateria 12 V, com maleta e 13 acessórios'
+    brand: 'WAP'
+    rating: 4.8
+    affiliateUrl: 'https://www.amazon.com.br/dp/B09V1SM8QB?tag=reformacaseira-20'
+    stores:
+      - store: 'amazon'
+        url: 'https://www.amazon.com.br/dp/B09V1SM8QB?tag=reformacaseira-20'
+      - store: 'mercadolivre'
+        url: 'https://meli.la/2J9UpNP'
+    image: '/images/produtos/wap-bpf-12k3-kit-13.webp'
+    pros:
+      - 'Ficha técnica completa: torque, rotação, bateria e mandril informados'
+      - '18 níveis de torque para parafusar e 1 para furar'
+      - 'Mais de 22 mil avaliações, nota 4,8'
+    cons:
+      - 'Bateria de 1.500 mAh: para trabalhos longos, uma segunda bateria ajuda'
+      - 'Garantia da bateria de 6 meses'
+  - name: 'Parafusadeira e furadeira sem fio "48V" com 2 baterias, maleta e acessórios'
+    brand: 'Genérica (Rhead)'
+    rating: 4.3
+    affiliateUrl: 'https://www.amazon.com.br/dp/B0GMYQN74L?tag=reformacaseira-20'
+    stores:
+      - store: 'amazon'
+        url: 'https://www.amazon.com.br/dp/B0GMYQN74L?tag=reformacaseira-20'
+      - store: 'mercadolivre'
+        url: 'https://meli.la/2ZWe2Bv'
+    image: '/images/produtos/parafusadeira-48v-generica.webp'
+    pros:
+      - 'Duas baterias e maleta com acessórios'
+      - 'Controle de torque, velocidade variável, reversão e LED'
+      - 'Serve para montagem de móveis e reparos leves'
+    cons:
+      - 'Anúncio não informa torque, rotação nem capacidade da bateria'
+      - 'O "48V" não corresponde a uma tensão de bateria plausível para esse tamanho'
+      - 'Marca sem histórico de assistência técnica'
+faq:
+  - question: 'Existe parafusadeira de 48 V desse tamanho?'
+    answer: 'Uma célula de lítio tem tensão nominal de cerca de 3,6 a 3,7 V e chega a 4,2 V carregada. Para chegar a 48 V, seriam necessárias pelo menos 12 células em série, um conjunto grande e pesado, incompatível com a bateria pequena dessas ferramentas. O número anunciado não descreve a tensão real.'
+  - question: 'O que importa mais numa parafusadeira: volts ou torque?'
+    answer: 'O torque, em newton-metro (Nm), diz quanta força de giro a ferramenta entrega. A tensão da bateria influencia a potência, mas só faz sentido comparar volts entre ferramentas honestamente rotuladas. Capacidade da bateria (mAh ou Ah), rotação e qualidade do motor completam o quadro.'
+  - question: 'Parafusadeira genérica "48V" serve para casa?'
+    answer: 'Para montar móveis, apertar parafusos em madeira e furar MDF e madeira, muitas servem. O problema é não saber a força real e a durabilidade antes de comprar, nem ter assistência técnica se a bateria falhar.'
+  - question: 'Qual a diferença entre 12 V, 18 V e 20 V MAX?'
+    answer: 'São rótulos de baterias de lítio com 3 ou 5 células em série. Os "12 V MAX" e "20 V MAX" indicam a tensão máxima com a bateria cheia e sem carga; a tensão nominal dessas mesmas baterias é de cerca de 10,8 V e 18 V. Um 20 V MAX e um 18 V de outra marca são, na prática, a mesma classe de bateria.'
+  - question: 'Ela fura parede?'
+    answer: 'Parafusadeiras compactas a bateria, sem impacto, furam madeira, MDF e metal fino. Para tijolo e concreto, o certo é furadeira de impacto ou martelete. Algumas genéricas anunciam "impacto", mas sem ficha técnica é impossível saber o desempenho real.'
+---
+
+import AffiliateButton from '../../components/AffiliateButton.astro';
+import ComparisonTable from '../../components/ComparisonTable.astro';
+
+Entre as ferramentas mais vendidas da Amazon e do Mercado Livre, uma categoria chama atenção: parafusadeiras compactas, com **duas baterias**, maleta e um número enorme estampado no corpo: **"48V"**, às vezes **"21V"**, **"88V"** ou até **"199V"**. Custam menos que uma parafusadeira de marca de 12 V. Parece um negócio imperdível: quatro vezes a "voltagem" pela metade do preço.
+
+Este guia explica **por que esse número não descreve a ferramenta**, usando a física das baterias de lítio, o que **realmente** define a força de uma parafusadeira e como comparar uma genérica com uma de marca **lendo a ficha técnica**, e não o adesivo. Para comparação, usamos a **WAP BPF-12K3**, a parafusadeira a bateria mais avaliada da Amazon Brasil, e uma das genéricas "48V" mais vendidas da mesma loja.
+
+![Parafusadeira e furadeira genérica "48V" com duas baterias e maleta](/images/produtos/parafusadeira-48v-generica.webp)
+
+## O que é "volt" numa ferramenta a bateria
+
+A tensão (em **volts**) é a "pressão" elétrica que a bateria entrega ao motor. Em ferramentas honestamente rotuladas, mais tensão costuma significar **mais potência disponível**, e é por isso que o número virou argumento de venda.
+
+O problema é que, numa bateria de lítio, a tensão **não é um número livre**: ela depende de **quantas células** existem dentro da bateria, ligadas em série.
+
+### A conta das células de lítio
+
+Cada **célula de íon-lítio**, o "pilhão" cilíndrico que existe dentro das baterias de ferramenta, tem uma tensão **nominal** de cerca de **3,6 a 3,7 V**, e chega a cerca de **4,2 V** quando está totalmente carregada. Esses valores são características da química do lítio, descritas em referências técnicas como a Battery University.
+
+As baterias de ferramenta juntam células **em série** para somar as tensões:
+
+| Células em série | Tensão nominal (≈ 3,6 V cada) | Tensão máxima carregada (≈ 4,2 V cada) | Como costuma ser vendida |
+|---|---|---|---|
+| **3** | ≈ 10,8 V | ≈ 12,6 V | "12 V" ou "12 V MAX" |
+| **4** | ≈ 14,4 V | ≈ 16,8 V | "14,4 V" ou "16 V" |
+| **5** | ≈ 18 V | ≈ 21 V | "18 V" ou "20 V MAX" (às vezes "21 V") |
+| **13** | ≈ 47 V | ≈ 55 V | ? |
+
+Para chegar perto de **48 V**, seriam necessárias cerca de **13 células em série**. Uma bateria com 13 células de lítio é grande, pesada e cara, comparável às de ferramentas profissionais de bancada e roçadeiras a bateria. **Não cabe** na baterinha que encaixa no cabo de uma parafusadeira compacta.
+
+Ou seja: a parafusadeira de bolso com "48V" não tem uma bateria de 48 V. O número é **marketing**, não especificação. Na maioria desses produtos, a bateria tem o tamanho típico de uma bateria de **3 a 5 células**, a mesma classe das ferramentas de marca de 12 V a 20 V.
+
+### E o "20V MAX" das marcas?
+
+As marcas grandes também usam um truque de rótulo, mas de outro tamanho: o **"MAX"**. Uma bateria vendida como **"20V MAX"** tem **5 células**: a tensão **nominal** é de cerca de **18 V**, e os **20 V** são a tensão **máxima** medida com a bateria cheia e sem carga. Os fabricantes costumam informar isso nas letras miúdas. É uma diferença de rótulo entre **18 V** e **20 V MAX** para a **mesma** bateria, e não a diferença entre 12 V e 48 V.
+
+A regra prática: **12 V MAX = 3 células**, **18 V = 20 V MAX = 5 células**. Tudo que fuja muito disso, numa ferramenta compacta, merece desconfiança.
+
+## Então o que define a força de uma parafusadeira?
+
+Se o volt do adesivo não serve, o que comparar? Quatro números da ficha técnica, e um que não aparece nela:
+
+### 1. Torque (Nm)
+
+O **torque**, medido em **newton-metro (Nm)**, é a **força de giro** que a ferramenta entrega. É o número que diz se ela vai conseguir apertar um parafuso longo em madeira dura, ou se vai parar no meio do caminho.
+
+Como referência, a própria WAP BPF-12K3, uma parafusadeira compacta de 12 V, informa **17 Nm**. Parafusadeiras de **18 V** das marcas costumam declarar torques bem maiores, e as **parafusadeiras de impacto**, que usam outro mecanismo, maiores ainda. Para comparar, use sempre o número da **ficha do fabricante** de cada modelo.
+
+Para **montar móveis** de MDF, o torque de uma parafusadeira compacta de 12 V é suficiente; para **parafusos longos em madeira maciça**, estrutura de deck ou chumbadores, mais torque faz diferença.
+
+### 2. Rotação (rpm)
+
+A **rotação**, em rotações por minuto, diz quão rápido o mandril gira. Para **furar** madeira e metal, rotação mais alta ajuda; para **parafusar**, rotação baixa e controlada evita espanar. Muitas parafusadeiras têm **duas velocidades**: uma baixa para parafusar e uma alta para furar.
+
+### 3. Capacidade da bateria (mAh ou Ah)
+
+A **capacidade** diz **quanto tempo** a bateria dura, não quanta força a ferramenta tem. Uma bateria de **1.500 mAh** (1,5 Ah) dura menos que uma de **2.000 mAh** na mesma ferramenta. Duas baterias são melhores que uma, mas só se a capacidade de cada uma for informada.
+
+### 4. Mandril
+
+O **mandril** de **10 mm** (3/8") é o padrão das parafusadeiras compactas; o de **13 mm** (1/2") aparece nas mais fortes. Mandril **de aperto rápido**, sem chave, é o comum nessas ferramentas.
+
+### 5. O que não aparece na ficha: motor, engrenagens e controle
+
+Duas ferramentas com o mesmo torque declarado podem ter durabilidade muito diferente. A **qualidade do motor**, das **engrenagens** (metal ou plástico) e da **eletrônica de proteção da bateria** não aparecem no anúncio, mas definem se a ferramenta dura anos ou meses. É aqui que o **histórico da marca**, a **assistência técnica** e o **volume de avaliações** entram na conta.
+
+## O que o anúncio da "48V" informa, e o que não informa
+
+Comparando os anúncios das duas ferramentas na Amazon Brasil, a diferença está mais no que **falta** do que no que sobra:
+
+| Item | WAP BPF-12K3 | Genérica "48V" mais vendida |
+|---|---|---|
+| **Tensão anunciada** | 12 V | "48V" |
+| **Torque** | **17 Nm** (torque do item, segundo a ficha) | **não informado** |
+| **Rotação** | **740 rpm** | **não informado** |
+| **Bateria** | **1.500 mAh**, uma bateria | **capacidade não informada**, duas baterias |
+| **Mandril** | **10 mm** | não informado |
+| **Níveis de torque** | **18 para parafusar + 1 para furar** | "controle de torque", sem número |
+| **Capacidade de furo** | **20 mm em madeira, 6 mm em metal** | não informada |
+| **Peso** | **1,1 kg** | não informado |
+| **Garantia** | **1 ano**; bateria **6 meses** | não informada na ficha |
+| **Assistência técnica** | rede da WAP | marca importada sem rede conhecida |
+| **Avaliações** | **mais de 22 mil, nota 4,8** | mais de 1.200, nota 4,3 |
+
+*Fontes: anúncios dos dois produtos na Amazon Brasil. A ficha da WAP traz um campo de "torque máximo" de 740 Nm que repete o número da rotação e é claramente erro de cadastro; o torque coerente com a ferramenta é o de 17 Nm, que aparece em outro campo.*
+
+O anúncio da genérica descreve **recursos** (duas baterias, controle de torque, velocidade variável, reversão, LED, bivolt automático) mas **nenhum número de desempenho**. A única especificação numérica de destaque é justamente a menos confiável: o "48V".
+
+Isso não significa que a genérica seja ruim. Significa que **você não sabe** o que está comprando até usá-la. Com uma nota de **4,3** em mais de mil avaliações, muitos compradores estão satisfeitos para o uso doméstico, o que diz que, para montar móveis e pequenos reparos, ela costuma resolver.
+
+## As duas, lado a lado
+
+### WAP BPF-12K3: a ficha completa
+
+![Parafusadeira e furadeira WAP BPF-12K3 amarela e preta com maleta e acessórios](/images/produtos/wap-bpf-12k3-kit-13.webp)
+
+A **WAP BPF-12K3** é a parafusadeira a bateria mais avaliada da Amazon Brasil. É uma ferramenta de **12 V**, honesta no rótulo, com **18 níveis de torque** para parafusar, **1 posição para furar**, **controle de velocidade no gatilho**, **indicador de carga da bateria**, **LED** e maleta com acessórios. A análise completa está em [WAP BPF-12K3: a parafusadeira 12V mais vendida vale a pena?](/posts/wap-bpf-12k3-parafusadeira-review/).
+
+O ponto fraco é a **bateria única de 1.500 mAh**: para trabalhos longos, como montar um guarda-roupa inteiro, vale ter uma segunda bateria ou planejar pausas para recarga.
+
+<AffiliateButton href="https://www.amazon.com.br/dp/B09V1SM8QB?tag=reformacaseira-20" store="amazon" source="parafusadeira-48v-barata-o-que-esconde" />
+
+<AffiliateButton href="https://meli.la/2J9UpNP" store="mercadolivre" source="parafusadeira-48v-barata-o-que-esconde" />
+
+### A genérica "48V": o que esperar
+
+A genérica mais vendida vem com **duas baterias**, **carregador bivolt**, **maleta**, **kit de 5 bits e 6 brocas**, **controle de torque**, **velocidade variável**, **reversão** e **LED**, segundo o anúncio. Para quem precisa de uma ferramenta para **montar móveis**, **apertar parafusos em madeira** e **furar MDF**, o pacote é atraente.
+
+O que esperar com honestidade:
+
+- **Força** suficiente para móveis e parafusos comuns, mas desconhecida para trabalhos pesados.
+- **Durabilidade** incerta: sem marca conhecida, não há histórico de quanto tempo motor e bateria aguentam.
+- **Reposição** difícil: se a bateria falhar depois de um ano, achar uma bateria compatível pode ser complicado.
+- **Assistência técnica**: não há rede conhecida para reparo.
+
+<AffiliateButton href="https://www.amazon.com.br/dp/B0GMYQN74L?tag=reformacaseira-20" store="amazon" source="parafusadeira-48v-barata-o-que-esconde" />
+
+<AffiliateButton href="https://meli.la/2ZWe2Bv" store="mercadolivre" source="parafusadeira-48v-barata-o-que-esconde" />
+
+<ComparisonTable
+  rows={[
+    { name: 'WAP BPF-12K3', brand: 'WAP', rating: 4.8, highlight: 'Ficha completa, 18 níveis de torque, assistência', specLabel: '12 V · 17 Nm · 740 rpm', affiliateUrl: 'https://www.amazon.com.br/dp/B09V1SM8QB?tag=reformacaseira-20', stores: [{ store: 'amazon', url: 'https://www.amazon.com.br/dp/B09V1SM8QB?tag=reformacaseira-20' }, { store: 'mercadolivre', url: 'https://meli.la/2J9UpNP' }] },
+    { name: 'Genérica "48V" com 2 baterias', brand: 'Rhead', rating: 4.3, highlight: 'Duas baterias e kit, sem dados de desempenho', specLabel: '"48V" · torque e rpm não informados', affiliateUrl: 'https://www.amazon.com.br/dp/B0GMYQN74L?tag=reformacaseira-20', stores: [{ store: 'amazon', url: 'https://www.amazon.com.br/dp/B0GMYQN74L?tag=reformacaseira-20' }, { store: 'mercadolivre', url: 'https://meli.la/2ZWe2Bv' }] },
+  ]}
+  source="parafusadeira-48v-barata-o-que-esconde"
+/>
+
+## Como ler qualquer anúncio de parafusadeira
+
+Um roteiro de cinco perguntas para não cair no número do adesivo:
+
+1. **O torque está em Nm?** Se não está, ou se está um valor absurdo (como "740 Nm" numa parafusadeira de bolso), desconfie ou procure a ficha do fabricante.
+2. **A capacidade da bateria está em mAh ou Ah?** Sem esse número, "duas baterias" pode ser pouco.
+3. **A rotação está informada?** E há uma ou duas velocidades?
+4. **A tensão é plausível para o tamanho?** Ferramenta compacta: 12 V (3 células) ou 18–20 V (5 células). Números como 48 V, 88 V e 199 V numa bateria pequena não descrevem a bateria.
+5. **Existe assistência técnica e bateria de reposição?** Em ferramenta a bateria, a bateria é a peça que mais se desgasta; poder comprar outra é o que prolonga a vida da ferramenta.
+
+Se o anúncio responde às cinco, você sabe o que está comprando. Se não responde, você está comprando pela **foto** e pelas **avaliações**, o que pode dar certo, mas é uma aposta.
+
+## Uma bateria ou duas?
+
+O argumento de venda mais forte das genéricas é vir com **duas baterias**. Vale a pena entender quando isso faz diferença:
+
+- **Montar um móvel pequeno**, apertar meia dúzia de parafusos, pendurar uma prateleira: uma bateria carregada resolve com folga.
+- **Montar um guarda-roupa, uma cozinha planejada ou vários móveis no mesmo dia**: a segunda bateria evita parar no meio para recarregar.
+- **Uso profissional**, o dia inteiro: duas baterias de boa capacidade são quase obrigatórias.
+
+Mas duas baterias **sem a capacidade informada** podem valer menos que uma bem dimensionada. E a segunda bateria só é vantagem se **ambas** forem conservadas: bateria reserva esquecida descarregada na maleta por meses pode não aceitar mais carga quando você precisar dela.
+
+Uma estratégia comum com ferramentas de marca é começar com **uma bateria** e comprar a segunda **depois**, se o uso pedir. Com as linhas de bateria compartilhada das marcas, a mesma bateria serve em outras ferramentas da linha, como lixadeiras, serras e aspiradores, o que dilui o custo com o tempo.
+
+## A bateria é o coração (e o que mais desgasta)
+
+Em ferramentas a bateria, o motor raramente é o primeiro a falhar. A **bateria** é. Baterias de lítio perdem capacidade com o tempo e com os ciclos de carga, e algumas atitudes aceleram esse desgaste:
+
+- **Deixar a bateria descarregada por meses.** Baterias de lítio guardadas totalmente vazias podem não aceitar carga depois. O ideal é guardar com carga parcial.
+- **Calor.** Bateria esquecida no carro ao sol, ou carregada logo depois de um uso pesado, ainda quente, envelhece mais rápido.
+- **Carregador errado.** Use sempre o carregador da própria ferramenta.
+- **Batidas e quedas.** Bateria que caiu e ficou deformada não deve ser usada nem carregada.
+
+É aqui que a diferença entre marca e genérica aparece com o tempo: nas ferramentas de marca, as baterias costumam ter **circuitos de proteção** e podem ser compradas separadas; nas genéricas, a qualidade das células e da proteção é desconhecida, e a reposição, incerta.
+
+**Segurança com bateria de lítio:** bateria inchada, com cheiro, muito quente ou com vazamento deve ser **retirada de uso** e descartada em ponto de coleta de pilhas e baterias, nunca no lixo comum. Não tente abrir, consertar ou trocar as células de uma bateria de lítio em casa.
+
+## Furar parede com parafusadeira?
+
+Muitos anúncios de parafusadeiras genéricas dizem "fura concreto" ou "com impacto". Algumas têm de fato uma posição de impacto, como a WAP BPFI-12K4, de outra linha. Mas a regra geral é:
+
+- **parafusadeira comum** (como a BPF-12K3): fura **madeira, MDF, plástico e metal fino**; **não** é para parede;
+- **parafusadeira de impacto** compacta: fura **tijolo e reboco** com esforço, em furos pequenos;
+- **furadeira de impacto com fio** ou **martelete**: para **parede, concreto e laje**.
+
+Para quem precisa furar parede com frequência, a combinação mais comum na casa é **uma parafusadeira a bateria para parafusar** e **uma furadeira com fio para a parede**. O review da [furadeira de impacto Bosch GSB 13 RE](/posts/furadeira-impacto-bosch-gsb-13-re-vale-a-pena/) mostra até onde uma furadeira com fio vai.
+
+## Embreagem de torque: o recurso que importa para montar móveis
+
+O anel numerado na frente da parafusadeira é a **embreagem de torque**. Ele faz o mandril "patinar" quando o parafuso chega a uma certa resistência, evitando:
+
+- **espanar a cabeça** do parafuso;
+- **afundar demais** o parafuso no MDF, que esfarela;
+- **trincar** a peça.
+
+A WAP BPF-12K3 tem **18 níveis**; a genérica anuncia "controle de torque", sem dizer quantos níveis. Para montar móveis, comece num nível **baixo** e suba aos poucos até o parafuso ficar firme, sem afundar.
+
+## Motor com escova ou sem escova (brushless)
+
+Outro dado que separa ferramentas e quase nunca aparece nos anúncios genéricos é o tipo de **motor**:
+
+- **Motor com escovas**: o tipo tradicional, em que escovas de carvão encostam numa peça girante para levar a corrente. É mais barato. As escovas se desgastam com o uso, e o atrito gera calor e perdas.
+- **Motor sem escovas (brushless)**: a comutação é feita por eletrônica, sem contato. Em geral, é **mais eficiente** (a mesma bateria rende mais), **esquenta menos** e **dura mais**, porque não há escova para gastar. Costuma estar nas linhas mais caras das marcas.
+
+Quando o anúncio de uma ferramenta barata não diz nada sobre o motor, o mais provável é que seja **com escovas**. Isso não é defeito para uso doméstico leve, mas é mais um item que a ficha completa de uma marca deixa claro e a genérica deixa no escuro.
+
+## Bits e pontas: a outra metade do parafuso bem apertado
+
+Muita gente culpa a parafusadeira quando a ponta escorrega e espana o parafuso. Na maioria das vezes, o problema é a **ponta errada**:
+
+- **Phillips (PH)** e **Pozidriv (PZ)** parecem iguais à primeira vista, mas não são: o Pozidriv tem pequenas ranhuras extras entre os braços da cruz. Muitos móveis de MDF usam parafusos **Pozidriv**; uma ponta Phillips neles escorrega com facilidade.
+- **O tamanho importa**: PH1, PH2 e PH3 (ou PZ1, PZ2) servem a cabeças diferentes. A **PH2** é a mais comum em parafusos de móveis e de bucha.
+- **Pontas de qualidade** duram mais e encaixam melhor. Pontas que vêm em kits genéricos às vezes são de aço mole e "arredondam" depressa.
+- **Porta-bits magnético** segura o parafuso na ponta, ajudando a começar o aperto com uma mão só.
+
+Duas técnicas que evitam espanar: **pressão firme no eixo do parafuso**, com a ferramenta alinhada, e **velocidade baixa** no começo e no fim do aperto. A embreagem de torque faz o resto.
+
+## Para quem cada uma faz sentido
+
+**A parafusadeira de marca (como a WAP BPF-12K3) faz sentido para:**
+
+- quem quer **saber o que está comprando**: torque, rotação e bateria informados;
+- quem vai usar com **frequência** e quer **assistência técnica** e **bateria de reposição**;
+- quem valoriza **durabilidade** e **histórico** de milhares de avaliações.
+
+**A genérica "48V" pode fazer sentido para:**
+
+- quem vai usar **pouco**: montar alguns móveis, apertar parafusos esporádicos;
+- quem valoriza **duas baterias e o kit** na mesma caixa;
+- quem **aceita o risco** de não saber a força real e de não ter assistência.
+
+**Nenhuma das duas** substitui uma **furadeira de impacto** para parede e concreto.
+
+## Erros comuns
+
+- **Comparar ferramentas pelo número do adesivo.**
+- **Achar que duas baterias significam mais força**: significam mais tempo, se a capacidade for boa.
+- **Comprar parafusadeira para furar parede de concreto.**
+- **Usar o nível máximo de torque** para montar móveis de MDF.
+- **Guardar a bateria descarregada** por meses.
+- **Carregar com carregador de outra ferramenta.**
+- **Continuar usando bateria inchada.**
+
+## Checklist antes de comprar
+
+- [ ] O anúncio informa **torque em Nm**, **rotação** e **capacidade da bateria**.
+- [ ] A **tensão** é plausível para o tamanho da ferramenta.
+- [ ] Há **embreagem de torque** com níveis definidos.
+- [ ] Existe **bateria de reposição** à venda.
+- [ ] A marca tem **assistência técnica**.
+- [ ] Vou usar para **parafusar e furar madeira e MDF**, não para concreto.
+
+## Resumo
+
+O **"48V"** das parafusadeiras compactas genéricas **não descreve a bateria**: uma célula de lítio tem cerca de **3,6 V nominais** e **4,2 V** carregada, e 48 V exigiriam cerca de **13 células em série**, que não cabem numa bateria desse tamanho. A força de uma parafusadeira está no **torque (Nm)**, na **rotação**, na **capacidade da bateria** e na **qualidade do motor e das engrenagens**. A **WAP BPF-12K3** informa tudo isso (17 Nm, 740 rpm, 1.500 mAh, 18 níveis de torque) e tem mais de 22 mil avaliações. A genérica "48V" mais vendida entrega duas baterias e um kit completo, mas **sem dados de desempenho**: pode servir para uso leve, desde que se compre sabendo o que **não** se sabe.
+
+## Fontes
+
+- Battery University — [tipos de baterias de íon-lítio](https://batteryuniversity.com/article/bu-205-types-of-lithium-ion) (tensão nominal e máxima das células)
+- Amazon Brasil — anúncios da [WAP BPF-12K3](https://www.amazon.com.br/dp/B09V1SM8QB) e da [parafusadeira genérica "48V"](https://www.amazon.com.br/dp/B0GMYQN74L) (fichas técnicas e avaliações)

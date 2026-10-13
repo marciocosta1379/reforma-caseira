@@ -117,6 +117,8 @@ Frontmatter: `pubDate` (com hora nos posts de 18h), `author: 'Márcio Costa'`, `
 seção FAQ em **texto plano** (exigência do Google: não invente Q&A que não está no corpo),
 `featured: true` nos 2-3 de maior apelo (a home mostra no máximo 3).
 
+**Destaque obrigatório:** `featured: true` em 2-3 posts por semana, espalhados pelos dias (a home mostra os 3 publicados mais recentes com destaque). **Todo post de achadinhos sai com `featured: true`.** Nunca deixar a semana inteira com `featured: false` — a home fica parada nos destaques antigos.
+
 Critérios de destaque: listicles > comparativos de marca conhecida > reviews de nicho; priorize
 faixa de preço acessível e categorias de maior procura.
 

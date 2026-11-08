@@ -1,0 +1,283 @@
+---
+title: 'Multímetro digital em casa: o que medir e como não se arriscar'
+description: 'O que medir em casa com multímetro: pilhas, tomadas, fontes, continuidade de fios e fusíveis, os erros que queimam o aparelho e quando chamar o eletricista.'
+pubDate: 2026-11-09
+category: 'medicao'
+tags: ['multimetro', 'eletrica', 'medicao', 'ferramentas', 'seguranca', 'diy']
+featured: true
+draft: true
+author: 'Márcio Costa'
+faq:
+  - question: 'Dá para medir a tensão da tomada com multímetro?'
+    answer: 'Dá, com a escala de tensão alternada (V~ ou ACV) num valor acima da tensão da casa e as pontas nas conexões certas. É uma medição em circuito energizado: segure as pontas só pela parte isolada, uma em cada furo, sem encostar na parte metálica. Na dúvida, não meça e chame um eletricista.'
+  - question: 'Posso medir a corrente da tomada encostando as pontas?'
+    answer: 'Não. Para medir corrente, o multímetro precisa ficar em série com o circuito. Encostar as pontas na tomada com o aparelho na escala de corrente cria um curto-circuito, que pode queimar o fusível do multímetro, danificar o aparelho e causar faísca e queimadura.'
+  - question: 'O que é o teste de continuidade?'
+    answer: 'É a verificação de se existe caminho elétrico entre dois pontos, como as duas pontas de um fio ou de um fusível. Muitos multímetros apitam quando há continuidade. O teste é feito sempre com o circuito desligado.'
+  - question: 'Qual multímetro comprar para uso doméstico?'
+    answer: 'Para medir pilhas, tomadas e continuidade, um multímetro digital básico atende. Prefira modelos com indicação de categoria de segurança, pontas de prova em bom estado e, se possível, bip de continuidade, que facilita os testes.'
+  - question: 'O multímetro mostra valor negativo. Ele está com defeito?'
+    answer: 'Não. Em tensão contínua, o sinal de menos só indica que as pontas estão invertidas em relação à polaridade do circuito: a ponta vermelha está no negativo e a preta no positivo. O valor medido é o mesmo, só com o sinal trocado. Em pilha, bateria e fonte, inverter as pontas não causa dano ao aparelho nem ao circuito.'
+  - question: 'Dá para medir a temperatura ou a capacidade de uma pilha com multímetro?'
+    answer: 'A temperatura só se o modelo tiver essa função e vier com sonda de termopar, o que não é comum nos modelos básicos. A capacidade da pilha, em mAh, um multímetro comum não mede: ele mostra a tensão, que dá uma boa ideia do estado de carga, mas não diz quanta energia ainda resta. Para capacidade, é preciso um carregador analisador ou um testador específico.'
+products:
+  - name: 'Multímetro digital AstroAI, voltímetro e amperímetro'
+    brand: 'AstroAI'
+    rating: 4.5
+    affiliateUrl: 'https://www.amazon.com.br/dp/B01ISAMUA6?tag=reformacaseira-20'
+    stores:
+      - store: 'amazon'
+        url: 'https://www.amazon.com.br/dp/B01ISAMUA6?tag=reformacaseira-20'
+      - store: 'mercadolivre'
+        url: 'https://meli.la/1LRwkrL'
+    image: '/images/produtos/multimetro-astroai.webp'
+    pros:
+      - 'Mais de 54 mil avaliações na Amazon, nota 4,5'
+      - 'Mede tensão, corrente, resistência e continuidade, segundo o anúncio'
+      - 'Manual com orientações de uso correto das pontas e escalas'
+    cons:
+      - 'Não mede tensão CA abaixo de 100 mV, segundo o anúncio'
+  - name: 'Multímetro digital EDA 8Pj, amarelo'
+    brand: 'EDA'
+    rating: 4.5
+    affiliateUrl: 'https://www.amazon.com.br/dp/B076ZQ18P5?tag=reformacaseira-20'
+    stores:
+      - store: 'amazon'
+        url: 'https://www.amazon.com.br/dp/B076ZQ18P5?tag=reformacaseira-20'
+      - store: 'mercadolivre'
+        url: 'https://meli.la/2nWa3n7'
+    image: '/images/produtos/multimetro-eda-8pj.webp'
+    pros:
+      - 'Mede tensão CA e CC, resistência, diodos e transistores'
+      - 'Bateria 9 V e pontas de prova inclusas'
+      - 'Simples e barato para começar'
+    cons:
+      - 'Teste de continuidade sem bip, segundo o anúncio'
+---
+
+import AffiliateButton from '../../components/AffiliateButton.astro';
+
+O **multímetro** é uma daquelas ferramentas que parecem coisa de eletricista e acabam sendo úteis em qualquer casa. Com ele, dá para descobrir se a pilha do controle acabou, se a tomada está recebendo energia, se um fio está partido por dentro ou se o fusível do aparelho queimou. São medições simples, que poupam idas à loja e chamadas desnecessárias.
+
+Mas o multímetro também mede **eletricidade de verdade**, e usá-lo errado pode queimar o aparelho e, pior, causar choque ou queimadura. Este guia explica **o que faz sentido medir em casa**, como fazer cada medição com segurança, **o erro que mais queima multímetros** e quando a tarefa é de um eletricista.
+
+> **Fontes:** as características dos multímetros vêm das descrições da AstroAI e da EDA nos anúncios, consultadas em **07/11/2026**. As orientações de segurança seguem princípios básicos de medição elétrica e o manual de cada aparelho, que deve ser lido antes do uso. O post não se baseia em teste próprio e não substitui o serviço de um eletricista qualificado.
+
+## O que é um multímetro
+
+O multímetro reúne vários instrumentos num só:
+
+- **voltímetro**: mede **tensão**, em volts (V);
+- **amperímetro**: mede **corrente**, em ampères (A);
+- **ohmímetro**: mede **resistência**, em ohms (Ω);
+- **teste de continuidade**: indica se há caminho elétrico entre dois pontos, muitas vezes com um **bip**;
+- **teste de diodo**, e em alguns modelos, **transistores**, **temperatura** e **capacitância**.
+
+Os símbolos no seletor costumam ser:
+
+- **V~** ou **ACV**: tensão **alternada**, a da tomada;
+- **V⎓** ou **DCV**: tensão **contínua**, a de pilhas, baterias e fontes;
+- **A** ou **mA**: corrente;
+- **Ω**: resistência;
+- um **símbolo de som** ou de diodo: continuidade.
+
+## Antes de tudo: as pontas e os bornes
+
+O multímetro tem **duas pontas de prova**, uma preta e uma vermelha, e normalmente **três ou quatro bornes** (as entradas onde as pontas encaixam):
+
+- **COM**: a ponta **preta** fica sempre aqui;
+- **VΩ** (ou similar): a ponta **vermelha** fica aqui para medir **tensão**, **resistência** e **continuidade**;
+- **mA** e **10A** (ou 20A): bornes para medir **corrente**, que só devem ser usados nessa medição.
+
+A AstroAI destaca no próprio anúncio que medições sem resultado costumam vir de **pontas mal encaixadas**, **bornes errados** ou **seletor na posição errada**. Confira os três antes de cada medição.
+
+## O erro que mais queima multímetros
+
+**Medir tensão com a ponta vermelha no borne de corrente.** Na posição de corrente, o multímetro tem **resistência quase zero** entre as pontas. Se você encostar as pontas numa tomada assim, cria um **curto-circuito** através do aparelho: o fusível interno queima, se existir, ou o próprio multímetro é danificado, com risco de **faísca** e **queimadura**.
+
+**Regra de ouro:**
+
+- para **tensão**, ponta vermelha em **VΩ**;
+- só mude para **A** ou **mA** quando for medir corrente, e volte para **VΩ** logo depois.
+
+**Corrente** se mede com o multímetro **em série** com o circuito, nunca encostando as pontas numa tomada. Em casa, raramente é preciso medir corrente; quando for, o mais seguro é usar um **alicate amperímetro**, que mede sem abrir o circuito.
+
+## O que faz sentido medir em casa
+
+### 1. Pilhas e baterias
+
+A medição mais simples e segura:
+
+1. Seletor em **tensão contínua** (V⎓ ou DCV), na escala acima da tensão da pilha (por exemplo, 20 V).
+2. Ponta **vermelha** no polo **positivo**, **preta** no **negativo**.
+3. Leia a tensão.
+
+Uma pilha alcalina nova de 1,5 V mostra um pouco acima disso; uma pilha muito abaixo do valor nominal está fraca. Pilhas recarregáveis de NiMH têm tensão nominal de 1,2 V. O post [Pilha alcalina ou recarregável](https://nerdcaseiro.com.br/posts/pilha-alcalina-ou-recarregavel/) do Nerd Caseiro compara os tipos.
+
+### 2. Tensão da tomada
+
+Útil para saber se a tomada tem **127 V** ou **220 V**, ou se está **sem energia**. É uma medição em **circuito energizado**, então pede atenção:
+
+1. Ponta **vermelha** em **VΩ** e **preta** em **COM**: confira duas vezes.
+2. Seletor em **tensão alternada** (V~ ou ACV), numa escala **acima de 220 V**, como 600 V ou 750 V, conforme o aparelho.
+3. Segure as pontas **só pela parte isolada**, longe da ponta metálica.
+4. Encoste uma ponta em cada furo da tomada, sem deixar as pontas se tocarem.
+5. Leia a tensão e retire as pontas.
+
+**Não faça** essa medição com as mãos molhadas, descalço em piso molhado ou com pontas de prova rachadas. Na dúvida, não meça.
+
+### 3. Continuidade de fios, cabos e fusíveis
+
+Descobre se um fio está **partido por dentro**, se um **fusível queimou** ou se um cabo de extensão tem mau contato:
+
+1. **Desligue e desconecte** o aparelho ou o circuito: continuidade se mede **sem energia**.
+2. Seletor em **continuidade** (símbolo de som) ou na menor escala de **resistência**.
+3. Encoste as pontas nas duas extremidades do fio ou do fusível.
+4. Com **bip** ou leitura próxima de **zero ohm**, há continuidade. Sem bip e com leitura de circuito aberto, o caminho está interrompido.
+
+### 4. Resistência de chuveiro
+
+Com o chuveiro **desligado no disjuntor**, a medição de resistência entre os terminais da resistência indica se ela está **interrompida**. O post [Resistência do chuveiro: como trocar](/posts/resistencia-chuveiro-como-trocar/) explica o procedimento completo.
+
+### 5. Fontes e carregadores de baixa tensão
+
+A fonte do roteador, do modem, da fita de LED ou do brinquedo é outro teste seguro e muito útil. Quando um aparelho não liga, a dúvida é sempre a mesma: o defeito está nele ou na fonte? O multímetro responde em segundos.
+
+Com o seletor em **tensão contínua** (V com a linha reta), encoste a ponta vermelha no **centro** do plugue da fonte e a preta na **parte de fora**, ou siga a indicação de polaridade impressa na etiqueta. A fonte fica ligada na tomada, mas a medição é feita **só no plugue de saída**, que trabalha em baixa tensão. Nunca abra a fonte para medir do lado da tomada.
+
+Compare o valor com o que está escrito na etiqueta (por exemplo, "saída 12 V"). Algumas fontes mostram um valor **um pouco acima** do nominal quando estão sem carga, e isso é normal. O que indica defeito é leitura **zero**, muito abaixo do nominal ou que oscila sem parar. Se a fonte mede certo e o aparelho continua sem ligar, o problema está no aparelho ou no conector.
+
+## Manual ou automático (autorange)
+
+Multímetros digitais vêm em dois tipos de seletor:
+
+- **manual**: você escolhe a **escala** (por exemplo, 20 V, 200 V, 600 V). Se escolher uma escala abaixo do valor medido, o visor mostra um sinal de **sobrecarga**, geralmente "1" ou "OL". É preciso subir a escala;
+- **automático** (autorange): você escolhe só a **grandeza** (tensão, resistência), e o aparelho ajusta a escala sozinho.
+
+O manual é mais barato e ensina a pensar nas grandezas; o automático é mais prático para quem mede pouco. Em ambos, a regra de segurança é a mesma: **na dúvida, comece pela escala mais alta**.
+
+## Diagnóstico prático: a tomada que "não funciona"
+
+Um roteiro simples, antes de chamar o eletricista:
+
+1. **Teste outro aparelho** na mesma tomada: o problema pode ser o aparelho, não a tomada.
+2. **Confira o disjuntor** do circuito no quadro: se estiver desarmado, religue uma vez. Se desarmar de novo, há um problema e o caso é de eletricista.
+3. **Meça a tensão** da tomada com o multímetro, como descrito acima.
+4. Se não houver tensão e o disjuntor estiver ligado, pode haver **fio solto** na tomada ou na caixa. Com o **disjuntor desligado** e a tensão conferida em zero, quem tem prática pode abrir a tomada e reapertar os fios; caso contrário, chame o eletricista.
+
+O post [Como instalar tomada elétrica com segurança](/posts/como-instalar-tomada-eletrica-seguranca/) traz o passo a passo da troca.
+
+## Testando extensões e cabos de aparelhos
+
+Extensões e cabos de aparelhos se danificam com o uso: dobras, esmagamentos e puxões partem os fios por dentro. Com a extensão **desconectada da tomada**:
+
+1. Seletor em **continuidade**.
+2. Encoste uma ponta num pino do plugue e a outra no furo correspondente da tomada da extensão.
+3. Repita para o outro pino e, se houver, para o **terra**.
+4. Mexa no cabo durante o teste: se o bip falhar enquanto o cabo é dobrado, há fio partido.
+
+Extensão com fio partido ou plugue aquecendo deve ser **descartada**, não remendada com fita.
+
+## Bateria do multímetro
+
+Multímetro com **bateria fraca** pode mostrar leituras erradas. Quando aparecer o símbolo de **bateria** no visor, troque a bateria antes de confiar nas medições. Guarde o multímetro **desligado**, com o seletor em **OFF**, e retire a bateria se for ficar meses sem uso, para evitar vazamento.
+
+## Os multímetros comparados
+
+### AstroAI
+
+![Multímetro digital AstroAI vermelho com pontas de prova](/images/produtos/multimetro-astroai.webp)
+
+O **multímetro AstroAI** é um dos mais vendidos da categoria. Segundo o anúncio:
+
+- é um **multímetro digital** que funciona como **voltímetro** e **amperímetro** e mede corrente e tensão, entre outras grandezas;
+- o anúncio traz um alerta útil: **não mede tensão CA abaixo de 100 mV**, e a falta de leitura costuma vir de **pontas mal encaixadas**, **borne errado** ou **seletor na posição errada**;
+- recomenda **ler o manual** com atenção antes de medir.
+
+Na Amazon, tem mais de **54 mil avaliações**, com nota **4,5**.
+
+<AffiliateButton href="https://www.amazon.com.br/dp/B01ISAMUA6?tag=reformacaseira-20" store="amazon" source="multimetro-digital-em-casa-o-que-medir" />
+<AffiliateButton href="https://meli.la/1LRwkrL" store="mercadolivre" source="multimetro-digital-em-casa-o-que-medir" />
+
+### EDA 8Pj
+
+![Multímetro digital EDA amarelo com pontas de prova](/images/produtos/multimetro-eda-8pj.webp)
+
+Segundo a EDA, o **8Pj**:
+
+- mede **tensão alternada e contínua**;
+- mede **resistência**, **diodos** e **transistores**;
+- tem **teste de continuidade sem bip**;
+- usa **bateria 9 V**, que vem inclusa;
+- acompanha **pontas de prova**.
+
+Na Amazon, tem mais de **1.600 avaliações**, com nota **4,5**.
+
+<AffiliateButton href="https://www.amazon.com.br/dp/B076ZQ18P5?tag=reformacaseira-20" store="amazon" source="multimetro-digital-em-casa-o-que-medir" />
+<AffiliateButton href="https://meli.la/2nWa3n7" store="mercadolivre" source="multimetro-digital-em-casa-o-que-medir" />
+
+### Qual escolher
+
+| | AstroAI | EDA 8Pj |
+|---|---|---|
+| Tensão CA e CC | sim | sim |
+| Corrente | sim | conforme o modelo e as escalas do seletor |
+| Continuidade | sim | sim, sem bip |
+| Avaliações na Amazon | mais de 54 mil, nota 4,5 | mais de 1.600, nota 4,5 |
+
+**Na prática:** o **EDA** é o básico para pilhas, tomadas e fusíveis. O **AstroAI**, mais popular, é a escolha de quem quer um aparelho um pouco mais completo para começar. Para testes de continuidade frequentes, o **bip** faz diferença: sem ele, é preciso olhar para o visor a cada toque.
+
+## Categoria de segurança (CAT)
+
+Multímetros costumam trazer uma marcação **CAT** seguida de um algarismo romano e de uma tensão, como **CAT II 600 V** ou **CAT III 600 V**. Ela indica em que tipo de instalação o aparelho pode medir com segurança, considerando os picos de tensão que podem ocorrer:
+
+- **CAT II**: tomadas e aparelhos ligados nelas;
+- **CAT III**: quadros de distribuição e instalações fixas do prédio;
+- **CAT IV**: entrada de energia, medidores e rede da concessionária.
+
+Para uso doméstico em tomadas, **CAT II** é o mínimo. Quadros de distribuição são trabalho para eletricista, com equipamento adequado.
+
+## Cuidados com as pontas de prova
+
+- **Confira o isolamento** antes de cada uso: ponta rachada ou com fio exposto vai para o lixo.
+- Segure **atrás das proteções** da ponta, nunca na parte metálica.
+- Guarde as pontas **enroladas sem dobras fortes**.
+- Troque por pontas **compatíveis com a categoria** do multímetro.
+
+## Quando chamar o eletricista
+
+O multímetro ajuda a **diagnosticar**, mas não transforma ninguém em eletricista. Chame um profissional quando:
+
+- o problema estiver no **quadro de distribuição** ou nos **disjuntores**;
+- houver **cheiro de queimado**, **tomadas aquecendo** ou **disjuntor desarmando** com frequência;
+- for preciso **abrir paredes** ou **trocar fiação**;
+- houver **choque** ao encostar em aparelhos ou torneiras.
+
+O post [Disjuntor: amperagem e curva B ou C](/posts/disjuntor-amperagem-curva-b-c/) explica a função de cada disjuntor no quadro.
+
+## Erros comuns
+
+**Medir tensão com a ponta no borne de corrente.** Curto-circuito no multímetro.
+
+**Medir continuidade com o circuito ligado.** Pode danificar o aparelho e dar leitura errada.
+
+**Escala de tensão abaixo da tensão da tomada.** Em multímetros manuais, use escala acima de 220 V.
+
+**Pontas de prova rachadas.** Risco de choque.
+
+**Medir com as mãos molhadas.**
+
+**Medir no quadro de distribuição sem preparo.** Trabalho de eletricista.
+
+## Resumo
+
+- O multímetro mede **tensão**, **corrente**, **resistência** e **continuidade**.
+- Em casa, as medições mais úteis são **pilhas**, **tensão da tomada**, **continuidade** de fios e fusíveis e **resistência** de chuveiro desligado.
+- **Corrente** nunca se mede encostando as pontas na tomada: é curto-circuito.
+- Confira **pontas**, **bornes** e **seletor** antes de cada medição.
+- **AstroAI** para quem quer mais recursos; **EDA 8Pj** para o básico.
+
+### Fontes
+
+- AstroAI, descrição do multímetro digital no anúncio: funções e alertas de uso.
+- EDA, descrição do multímetro 8Pj no anúncio: funções, bateria e acessórios.
